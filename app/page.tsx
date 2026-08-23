@@ -50,7 +50,7 @@ export default function HomePage() {
             ? "z-20 pointer-events-auto opacity-100"
             : isDark
             ? "z-0 pointer-events-none opacity-40 md:opacity-50"
-            : "z-0 pointer-events-none opacity-50 md:opacity-60"
+            : "z-0 pointer-events-none opacity-80 md:opacity-100"
         }`}
       >
         <SceneCanvas />

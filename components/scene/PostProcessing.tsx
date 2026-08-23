@@ -4,21 +4,27 @@
 
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+import { useStudioStore } from "@/lib/store";
 
 export function PostProcessing() {
+  const theme = useStudioStore((s) => s.theme);
+  const isDark = theme === "dark";
+
   return (
     <EffectComposer>
       <Bloom
-        luminanceThreshold={0.45}
+        luminanceThreshold={isDark ? 0.45 : 0.8}
         luminanceSmoothing={0.8}
-        intensity={0.7}
+        intensity={isDark ? 0.7 : 0.2}
       />
-      <Vignette
-        eskil={false}
-        offset={0.25}
-        darkness={0.6}
-        blendFunction={BlendFunction.NORMAL}
-      />
+      {isDark && (
+        <Vignette
+          eskil={false}
+          offset={0.25}
+          darkness={0.6}
+          blendFunction={BlendFunction.NORMAL}
+        />
+      )}
     </EffectComposer>
   );
 }

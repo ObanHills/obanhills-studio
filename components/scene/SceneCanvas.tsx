@@ -28,6 +28,7 @@ export default function SceneCanvas() {
       <AdaptiveDpr pixelated />
 
       {/* Dynamic Theme Lighting */}
+      <color attach="background" args={[isDark ? "#07090e" : "#ffffff"]} />
       {isDark ? (
         <>
           <ambientLight intensity={0.4} color="#0c1420" />

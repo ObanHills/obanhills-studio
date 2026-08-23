@@ -54,12 +54,12 @@ export function Terrain() {
   return (
     <mesh ref={meshRef} geometry={geometry} receiveShadow>
       <meshStandardMaterial
-        color={isDark ? "#04121a" : "#ffffff"}
-        emissive={isDark ? "#00e5a3" : "#0d9488"}
-        emissiveIntensity={isDark ? 0.14 : 0.06}
+        color={isDark ? "#04121a" : "#94a3b8"}
+        emissive={isDark ? "#00e5a3" : "#0f766e"}
+        emissiveIntensity={isDark ? 0.14 : 0.08}
         wireframe
         transparent
-        opacity={isDark ? 0.6 : 0.22}
+        opacity={isDark ? 0.6 : 0.35}
       />
     </mesh>
   );
