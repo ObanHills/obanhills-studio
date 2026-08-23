@@ -3,6 +3,7 @@
 
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -38,7 +39,10 @@ export default function RootLayout({
       lang="en"
       className={`dark ${inter.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="bg-terrain-dark font-sans antialiased">{children}</body>
+      <body className="bg-terrain-dark font-sans antialiased [&:has(.custom-cursor)]:cursor-none">
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

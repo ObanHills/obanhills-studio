@@ -19,7 +19,7 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
   const isDark = theme === "dark";
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-28 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center">
+    <section className="relative z-[10] min-h-[90vh] flex flex-col items-center justify-center pt-28 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center">
       {/* Soft Radial Ambient Isolation Mask behind hero text */}
       <div
         className={`pointer-events-none absolute inset-0 -z-10 rounded-3xl blur-3xl opacity-80 transition-opacity ${

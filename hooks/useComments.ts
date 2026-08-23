@@ -73,17 +73,35 @@ export function useComments(projectSlug: string | null, projectId: string | null
   const postComment = useCallback(
     async (content: string, author_name?: string) => {
       if (!projectSlug) return;
-      const res = await fetch(`/api/projects/${encodeURIComponent(projectSlug)}/comments`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content, author_name }),
-      });
-      if (!res.ok) throw new Error("Failed to post comment");
-      const created = await res.json();
-      if (created && created.id) {
+
+      const supabase = createClient();
+
+      // Resolve project id first
+      const { data: project } = await supabase
+        .from("projects")
+        .select("id")
+        .eq("slug", projectSlug)
+        .maybeSingle();
+
+      if (!project) throw new Error("Project not found");
+
+      const { data, error } = await supabase
+        .from("comments")
+        .insert({
+          project_id: project.id,
+          author_name: author_name?.trim() || "Anonymous Visitor",
+          content: content.trim(),
+        })
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+
+      // Optimistically add in case realtime lags
+      if (data) {
         setComments((prev) => {
-          if (prev.some((c) => c.id === created.id)) return prev;
-          return [created, ...prev];
+          if (prev.some((c) => c.id === data.id)) return prev;
+          return [data, ...prev];
         });
       }
     },

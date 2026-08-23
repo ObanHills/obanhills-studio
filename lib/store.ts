@@ -14,10 +14,12 @@ interface StudioState {
   activeProjectSlug: string | null;
   isPanelOpen: boolean;
   isSceneReady: boolean;
+  isHoveringNode: boolean;
 
   setActiveProject: (slug: string | null) => void;
   setIsPanelOpen: (open: boolean) => void;
   setIsSceneReady: (ready: boolean) => void;
+  setIsHoveringNode: (hovering: boolean) => void;
 
   // ── Theme State (persisted) ───────────────────────────────────────────────
   theme: "dark" | "light";
@@ -44,6 +46,7 @@ export const useStudioStore = create<StudioState>()(
       activeProjectSlug: null,
       isPanelOpen: false,
       isSceneReady: false,
+      isHoveringNode: false,
 
       setActiveProject: (slug) =>
         set({ activeProjectSlug: slug, isPanelOpen: slug !== null }),
@@ -51,6 +54,8 @@ export const useStudioStore = create<StudioState>()(
       setIsPanelOpen: (open) => set({ isPanelOpen: open }),
 
       setIsSceneReady: (ready) => set({ isSceneReady: ready }),
+
+      setIsHoveringNode: (hovering) => set({ isHoveringNode: hovering }),
 
       // Theme
       theme: "dark",

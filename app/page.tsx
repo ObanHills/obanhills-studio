@@ -49,8 +49,8 @@ export default function HomePage() {
           is3DMode
             ? "z-20 pointer-events-auto opacity-100"
             : isDark
-            ? "z-0 pointer-events-none opacity-40 md:opacity-50"
-            : "z-0 pointer-events-none opacity-80 md:opacity-100"
+            ? "z-[1] pointer-events-none opacity-40 md:opacity-50"
+            : "z-[1] pointer-events-none opacity-80 md:opacity-100"
         }`}
       >
         <SceneCanvas />

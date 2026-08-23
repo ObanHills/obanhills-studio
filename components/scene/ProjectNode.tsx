@@ -8,6 +8,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Html, Sphere, Torus, Cylinder, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 import { useStudioStore } from "@/lib/store";
+import { LikeParticles } from "./LikeParticles";
 import type { Project } from "@/types";
 
 interface ProjectNodeProps {
@@ -21,10 +22,23 @@ export function ProjectNode({ project }: ProjectNodeProps) {
   const baseRingRef = useRef<THREE.Mesh>(null);
   const beaconRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
+  const [particleTriggered, setParticleTriggered] = useState(false);
+  const prevLikeCount = useRef(project.likes_count);
 
-  const { setActiveProject, activeProjectSlug } = useStudioStore();
+  // Fire particle burst when likes_count increases
+  useEffect(() => {
+    if (project.likes_count > prevLikeCount.current) {
+      setParticleTriggered(true);
+      const timer = setTimeout(() => setParticleTriggered(false), 1600);
+      prevLikeCount.current = project.likes_count;
+      return () => clearTimeout(timer);
+    }
+    prevLikeCount.current = project.likes_count;
+  }, [project.likes_count]);
+
+  const { setActiveProject, activeProjectSlug, setIsHoveringNode } = useStudioStore();
   const isActive = activeProjectSlug === project.slug;
-  const { camera } = useThree();
+  const { camera, gl } = useThree();
 
   // Load texture cleanly
   const texture = useMemo(() => {
@@ -35,8 +49,9 @@ export function ProjectNode({ project }: ProjectNodeProps) {
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.generateMipmaps = true;
     tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.anisotropy = gl.capabilities.getMaxAnisotropy();
     return tex;
-  }, [cover_image_url]);
+  }, [cover_image_url, gl]);
 
   // Dynamic animation and hover interaction
   useFrame(({ clock }) => {
@@ -127,12 +142,14 @@ export function ProjectNode({ project }: ProjectNodeProps) {
         onPointerEnter={(e) => {
           e.stopPropagation();
           setHovered(true);
-          document.body.style.cursor = "pointer";
+          setIsHoveringNode(true);
+          document.body.style.cursor = "none";
         }}
         onPointerLeave={(e) => {
           e.stopPropagation();
           setHovered(false);
-          document.body.style.cursor = "auto";
+          setIsHoveringNode(false);
+          document.body.style.cursor = "none";
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -260,6 +277,9 @@ export function ProjectNode({ project }: ProjectNodeProps) {
           </div>
         </Html>
       )}
+
+      {/* Like Particle Burst */}
+      <LikeParticles color={color} triggered={particleTriggered} />
     </group>
   );
 }
