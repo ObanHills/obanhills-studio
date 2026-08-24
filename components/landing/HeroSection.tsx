@@ -58,11 +58,7 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
         >
           Architecting{" "}
           <span
-            className={`text-transparent bg-clip-text ${
-              isDark
-                ? "bg-gradient-to-r from-white via-[#00e5a3] to-[#00d2ff]"
-                : "bg-gradient-to-r from-slate-900 via-teal-700 to-cyan-700"
-            }`}
+            className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] via-[#f2d98a] to-[#c9a84c]"
           >
             Uniquely Classic
           </span>{" "}
