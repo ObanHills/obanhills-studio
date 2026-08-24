@@ -4,6 +4,7 @@
 
 import { motion } from "framer-motion";
 import { User, Award, Terminal, Code, Sparkles, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
 
 export function AboutSection() {
@@ -122,8 +123,14 @@ export function AboutSection() {
 
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 text-[#00e5a3] shadow-[0_0_20px_rgba(0,229,163,0.2)]">
-                  <Sparkles size={24} />
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#00e5a3]/30 shadow-[0_0_20px_rgba(0,229,163,0.2)] overflow-hidden shrink-0">
+                  <Image
+                    src="/obande.jpg"
+                    alt="Obande Sunday Itodo"
+                    fill
+                    className="object-cover"
+                    sizes="64px"
+                  />
                 </div>
                 <div>
                   <h3
