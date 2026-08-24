@@ -3,7 +3,7 @@
 // About the Founder & Lead: Obande Sunday Itodo and the Uniquely Classic philosophy.
 
 import { motion } from "framer-motion";
-import { User, Award, Terminal, Code, Sparkles, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
 
@@ -25,6 +25,7 @@ export function AboutSection() {
   return (
     <section id="about" className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
         {/* Left Narrative */}
         <div className="lg:col-span-7 flex flex-col gap-6">
           <div className="flex items-center gap-2">
@@ -43,7 +44,7 @@ export function AboutSection() {
               isDark ? "text-white" : "text-slate-950"
             }`}
           >
-            Hi, I’m{" "}
+            Hi, I&apos;m{" "}
             <span className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}>
               Obande Sunday Itodo
             </span>{" "}
@@ -65,17 +66,21 @@ export function AboutSection() {
                 futuristic interactive technology
               </strong>
               . From designing prominent visual identities for major tech summits like the{" "}
-              <em>Jos TechFest AI Summit 2025</em> to engineering living 3D digital worlds, my work is driven by one core philosophy:
+              <em>Jos TechFest AI Summit 2025</em> to engineering living 3D digital worlds, my work
+              is driven by one core philosophy:
             </p>
             <blockquote
               className={`my-2 border-l-2 border-[#00e5a3] pl-4 py-1 font-display text-lg font-medium italic ${
                 isDark ? "text-white/90" : "text-slate-800"
               }`}
             >
-              “Uniquely Classic — creating visual experiences that feel timelessly structured yet undeniably ahead of their time.”
+              &ldquo;Uniquely Classic — creating visual experiences that feel timelessly structured
+              yet undeniably ahead of their time.&rdquo;
             </blockquote>
             <p>
-              Whether partnering with brands for full-scale visual suites, directing high-impact creative campaigns, or crafting interactive spatial web applications, every project is delivered with meticulous precision.
+              Whether partnering with brands for full-scale visual suites, directing high-impact
+              creative campaigns, or crafting interactive spatial web applications, every project is
+              delivered with meticulous precision.
             </p>
           </div>
 
@@ -86,7 +91,7 @@ export function AboutSection() {
                 isDark ? "text-white/40" : "text-slate-500"
               }`}
             >
-              Core Toolkit & Creative Stack
+              Core Toolkit &amp; Creative Stack
             </span>
             <div className="flex flex-wrap gap-2.5">
               {stack.map((item) => (
@@ -112,42 +117,63 @@ export function AboutSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className={`relative rounded-3xl border p-8 backdrop-blur-2xl ${
+            className={`relative rounded-3xl border overflow-hidden backdrop-blur-2xl ${
               isDark
                 ? "border-white/[0.1] bg-gradient-to-b from-[#0e141d] to-[#070a0f] shadow-[0_24px_64px_rgba(0,0,0,0.6)]"
                 : "border-slate-200 bg-gradient-to-b from-white to-slate-50 shadow-[0_16px_48px_rgba(0,0,0,0.08)]"
             }`}
           >
-            {/* Glowing Accent Ring */}
-            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#00e5a3]/10 blur-3xl pointer-events-none" />
+            {/* Glowing Accent */}
+            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#00e5a3]/10 blur-3xl pointer-events-none z-0" />
 
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4">
-                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#00e5a3]/30 shadow-[0_0_20px_rgba(0,229,163,0.2)] overflow-hidden shrink-0">
-                  <Image
-                    src="/obande.jpg"
-                    alt="Obande Sunday Itodo"
-                    fill
-                    className="object-cover"
-                    sizes="64px"
-                  />
-                </div>
-                <div>
-                  <h3
-                    className={`font-display text-xl font-bold ${
-                      isDark ? "text-white" : "text-slate-900"
-                    }`}
-                  >
-                    ObanHills Studio
-                  </h3>
-                  <span className={isDark ? "text-xs text-white/40" : "text-xs text-slate-500"}>
-                    Est. 2024 · Nigeria & Global
-                  </span>
-                </div>
+            {/* Large Portrait — full width, head fully visible */}
+            <div className="relative w-full h-80 sm:h-96 overflow-hidden">
+              <Image
+                src="/obande.jpg"
+                alt="Obande Sunday Itodo"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 480px"
+                priority
+              />
+              {/* Gradient fade into card body */}
+              <div
+                className={`absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t ${
+                  isDark ? "from-[#0e141d]" : "from-white"
+                } to-transparent`}
+              />
+            </div>
+
+            {/* Card Body */}
+            <div className="relative z-10 flex flex-col gap-5 px-7 pb-7 -mt-6">
+              {/* Name & Title */}
+              <div>
+                <h3
+                  className={`font-display text-2xl font-bold ${
+                    isDark ? "text-white" : "text-slate-900"
+                  }`}
+                >
+                  Obande Sunday Itodo
+                </h3>
+                <span
+                  className={`text-sm font-semibold tracking-wide ${
+                    isDark ? "text-[#00e5a3]" : "text-[#0d9488]"
+                  }`}
+                >
+                  CEO | Lead Creative
+                </span>
+                <p
+                  className={`text-xs mt-0.5 ${
+                    isDark ? "text-white/40" : "text-slate-500"
+                  }`}
+                >
+                  ObanHills Studio · Est. 2024 · Nigeria &amp; Global
+                </p>
               </div>
 
+              {/* Info Rows */}
               <div
-                className={`space-y-4 text-xs leading-relaxed border-t pt-5 ${
+                className={`space-y-3 text-xs leading-relaxed border-t pt-5 ${
                   isDark ? "border-white/[0.08] text-white/60" : "border-slate-200 text-slate-600"
                 }`}
               >
@@ -159,7 +185,7 @@ export function AboutSection() {
                   >
                     Specialization:
                   </span>
-                  <span>Brand Identity, AI Creative Systems & 3D Web</span>
+                  <span>Brand Identity, AI Creative Systems &amp; 3D Web</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <span
@@ -175,7 +201,7 @@ export function AboutSection() {
                     }`}
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3] animate-pulse" />
-                    Available for commissions & collaborations
+                    Available for commissions &amp; collaborations
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
@@ -200,11 +226,12 @@ export function AboutSection() {
                 href="#contact"
                 className="mt-2 flex items-center justify-center gap-2 rounded-xl border border-[#00e5a3]/40 bg-[#00e5a3]/20 py-3 text-xs font-bold uppercase tracking-wider text-[#008f66] dark:text-[#00e5a3] transition-all hover:bg-[#00e5a3]/30 hover:shadow-[0_0_24px_rgba(0,229,163,0.2)]"
               >
-                Let’s Build Together →
+                Let&apos;s Build Together →
               </a>
             </div>
           </motion.div>
         </div>
+
       </div>
     </section>
   );
