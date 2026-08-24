@@ -48,7 +48,7 @@ export function AboutSection() {
             <span className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}>
               Obande Sunday Itodo
             </span>{" "}
-            — Lead Creative at ObanHills.
+            — CEO &amp; Lead Creative at ObanHills.
           </h2>
 
           <div
