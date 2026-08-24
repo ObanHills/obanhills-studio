@@ -36,7 +36,7 @@ export function ProjectNode({ project }: ProjectNodeProps) {
     prevLikeCount.current = project.likes_count;
   }, [project.likes_count]);
 
-  const { setActiveProject, activeProjectSlug, setIsHoveringNode } = useStudioStore();
+  const { setActiveProject, activeProjectSlug } = useStudioStore();
   const isActive = activeProjectSlug === project.slug;
   const { camera, gl } = useThree();
 
@@ -142,14 +142,12 @@ export function ProjectNode({ project }: ProjectNodeProps) {
         onPointerEnter={(e) => {
           e.stopPropagation();
           setHovered(true);
-          setIsHoveringNode(true);
-          document.body.style.cursor = "none";
+          document.body.style.cursor = "pointer";
         }}
         onPointerLeave={(e) => {
           e.stopPropagation();
           setHovered(false);
-          setIsHoveringNode(false);
-          document.body.style.cursor = "none";
+          document.body.style.cursor = "auto";
         }}
         onClick={(e) => {
           e.stopPropagation();

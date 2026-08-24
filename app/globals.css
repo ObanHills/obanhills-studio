@@ -25,18 +25,6 @@ body {
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
-}
-
-/* Restore cursor for mobile/touch devices */
-@media (hover: none), (pointer: coarse) {
-  html,
-  body {
-    cursor: auto;
-  }
-  * {
-    cursor: auto !important;
-  }
 }
 
 /* ── Thin custom scrollbar for comment section ──────────────────────────────── */
