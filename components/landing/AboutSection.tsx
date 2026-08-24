@@ -210,14 +210,26 @@ export function AboutSection() {
                       isDark ? "text-white" : "text-slate-900"
                     }`}
                   >
-                    Direct Inquiry:
+                    Email:
                   </span>
                   <span
-                    className={`font-mono ${
+                    className={`font-mono break-all ${
                       isDark ? "text-white/80" : "text-slate-800 font-semibold"
                     }`}
                   >
-                    talk2obandesunday@gmail.com
+                    Obanhillsconnect@gmail.com
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span
+                    className={`font-semibold min-w-[90px] ${
+                      isDark ? "text-white" : "text-slate-900"
+                    }`}
+                  >
+                    Phone / WA:
+                  </span>
+                  <span className={isDark ? "text-white/80" : "text-slate-800"}>
+                    07035721711 · 07035598886
                   </span>
                 </div>
               </div>

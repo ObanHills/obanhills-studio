@@ -19,7 +19,7 @@ export function ContactSection() {
     e.preventDefault();
     const subject = encodeURIComponent(`Project Inquiry from ${name} via ObanHills Studio`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:talk2obandesunday@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:Obanhillsconnect@gmail.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
@@ -77,13 +77,31 @@ export function ContactSection() {
                 Direct Contacts
               </span>
               <a
-                href="mailto:talk2obandesunday@gmail.com"
+                href="mailto:Obanhillsconnect@gmail.com"
                 className={`flex items-center gap-2 transition-colors ${
                   isDark ? "text-white hover:text-[#00e5a3]" : "text-slate-900 hover:text-[#0d9488]"
                 }`}
               >
                 <Mail size={14} className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"} />
-                <span>talk2obandesunday@gmail.com</span>
+                <span>Obanhillsconnect@gmail.com</span>
+              </a>
+              <a
+                href="tel:+2347035721711"
+                className={`flex items-center gap-2 transition-colors ${
+                  isDark ? "text-white hover:text-[#00e5a3]" : "text-slate-900 hover:text-[#0d9488]"
+                }`}
+              >
+                <MessageSquare size={14} className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"} />
+                <span>+234 703 572 1711 (Phone | WhatsApp)</span>
+              </a>
+              <a
+                href="tel:+2347035598886"
+                className={`flex items-center gap-2 transition-colors ${
+                  isDark ? "text-white hover:text-[#00e5a3]" : "text-slate-900 hover:text-[#0d9488]"
+                }`}
+              >
+                <MessageSquare size={14} className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"} />
+                <span>+234 703 559 8886 (Phone | WhatsApp)</span>
               </a>
               <div className="flex items-center gap-4 pt-2">
                 <a
@@ -122,6 +140,7 @@ export function ContactSection() {
               </div>
             </div>
           </div>
+
 
           {/* Right Form */}
           <div className="lg:col-span-7">
