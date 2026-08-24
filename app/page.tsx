@@ -40,7 +40,7 @@ export default function HomePage() {
       className={`relative min-h-screen w-full transition-colors duration-300 ${
         isDark
           ? "bg-[#07090e] text-white selection:bg-[#00e5a3]/30 selection:text-[#00e5a3]"
-          : "bg-white text-slate-900 selection:bg-[#00e5a3]/30 selection:text-[#008f66]"
+          : "bg-[#faf9f7] text-slate-900 selection:bg-[#00e5a3]/30 selection:text-[#008f66]"
       }`}
     >
       {/* 3D Background Canvas */}

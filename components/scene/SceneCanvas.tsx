@@ -1,8 +1,9 @@
 "use client";
 // components/scene/SceneCanvas.tsx
-// Root R3F Canvas with calibrated lighting and crisp atmosphere for Dark and Light modes.
+// Root R3F Canvas with calibrated lighting for Dark and Light modes.
+// Automatically reduces quality on mobile for smooth performance.
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stars, AdaptiveDpr } from "@react-three/drei";
 import { Terrain } from "./Terrain";
@@ -16,19 +17,25 @@ export default function SceneCanvas() {
   const theme = useStudioStore((s) => s.theme);
   const isDark = theme === "dark";
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768 || !window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  const bgColor = isDark ? "#07090e" : "#faf9f7";
+
   return (
     <Canvas
-      shadows
-      dpr={[1, 2]}
-      camera={{ position: [0, 10, 18], fov: 55 }}
-      gl={{ antialias: true, alpha: false }}
-      style={{ background: isDark ? "#07090e" : "#ffffff" }}
+      shadows={!isMobile}
+      dpr={isMobile ? [1, 1.2] : [1, 2]}
+      camera={{ position: [0, 10, 18], fov: isMobile ? 65 : 55 }}
+      gl={{ antialias: !isMobile, alpha: false }}
+      style={{ background: bgColor }}
     >
-      {/* Adaptive DPR for performance */}
       <AdaptiveDpr pixelated />
 
-      {/* Dynamic Theme Lighting */}
-      <color attach="background" args={[isDark ? "#07090e" : "#ffffff"]} />
+      <color attach="background" args={[bgColor]} />
+
       {isDark ? (
         <>
           <ambientLight intensity={0.4} color="#0c1420" />
@@ -36,21 +43,17 @@ export default function SceneCanvas() {
             position={[12, 22, 14]}
             intensity={0.9}
             color="#ffffff"
-            castShadow
+            castShadow={!isMobile}
           />
           <pointLight position={[0, 10, 0]} intensity={1.5} color="#00e5a3" distance={25} />
           <pointLight position={[-10, 6, -10]} intensity={0.8} color="#38bdf8" distance={22} />
-          <pointLight position={[10, 6, 10]} intensity={0.6} color="#94a3b8" distance={20} />
+          {!isMobile && (
+            <pointLight position={[10, 6, 10]} intensity={0.6} color="#94a3b8" distance={20} />
+          )}
           <fog attach="fog" args={["#07090e", 18, 55]} />
-          <Stars
-            radius={80}
-            depth={40}
-            count={3000}
-            factor={3}
-            saturation={0.3}
-            fade
-            speed={0.4}
-          />
+          {!isMobile && (
+            <Stars radius={80} depth={40} count={2000} factor={3} saturation={0.3} fade speed={0.4} />
+          )}
         </>
       ) : (
         <>
@@ -58,28 +61,27 @@ export default function SceneCanvas() {
           <directionalLight
             position={[14, 25, 14]}
             intensity={1.6}
-            color="#ffffff"
-            castShadow
+            color="#fff8f0"
+            castShadow={!isMobile}
           />
           <pointLight position={[0, 12, 0]} intensity={0.9} color="#0d9488" distance={28} />
-          <pointLight position={[-10, 6, -10]} intensity={0.5} color="#38bdf8" distance={22} />
-          <fog attach="fog" args={["#ffffff", 22, 65]} />
+          {!isMobile && (
+            <pointLight position={[-10, 6, -10]} intensity={0.5} color="#38bdf8" distance={22} />
+          )}
+          <fog attach="fog" args={["#faf9f7", 22, 65]} />
         </>
       )}
 
-      {/* Main scene content */}
       <Suspense fallback={null}>
-        <Terrain />
+        <Terrain isMobile={isMobile} />
         {projects.map((project) => (
           <ProjectNode key={project.slug} project={project} />
         ))}
       </Suspense>
 
-      {/* Camera behaviour */}
       <CameraRig />
 
-      {/* Post-processing effects */}
-      <PostProcessing />
+      {!isMobile && <PostProcessing />}
     </Canvas>
   );
 }

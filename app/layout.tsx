@@ -19,13 +19,67 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "ObanHills Interactive Studio",
+  metadataBase: new URL("https://obanhills.vercel.app"),
+  title: {
+    default: "ObanHills Studio — Uniquely Classic",
+    template: "%s | ObanHills Studio",
+  },
   description:
-    "An interactive 3D portfolio by Obande Sunday Itodo — explore projects across a digital terrain.",
+    "ObanHills is a creative studio led by Obande Sunday Itodo — crafting bespoke brand identities, high-impact visual suites, interactive 3D web environments, and AI-powered design workflows.",
+  keywords: [
+    "ObanHills",
+    "Obande Sunday Itodo",
+    "Creative Studio",
+    "Brand Identity",
+    "3D Web Design",
+    "Interactive Portfolio",
+    "Three.js",
+    "Visual Design",
+    "Nigeria",
+    "AI Design",
+  ],
+  authors: [{ name: "Obande Sunday Itodo", url: "https://obanhills.vercel.app" }],
+  creator: "Obande Sunday Itodo",
   openGraph: {
-    title: "ObanHills Interactive Studio",
-    description: "Explore projects across a 3D digital terrain.",
     type: "website",
+    locale: "en_US",
+    url: "https://obanhills.vercel.app",
+    siteName: "ObanHills Studio",
+    title: "ObanHills Studio — Uniquely Classic",
+    description:
+      "Explore an interactive 3D portfolio by Obande Sunday Itodo. Brand identity, spatial web experiences, and AI-driven creative workflows.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ObanHills Studio — Uniquely Classic",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ObanHills Studio — Uniquely Classic",
+    description:
+      "Explore an interactive 3D portfolio by Obande Sunday Itodo. Brand identity, spatial web, and AI creative workflows.",
+    images: ["/og-image.png"],
+    creator: "@obanhills",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -39,7 +93,7 @@ export default function RootLayout({
       lang="en"
       className={`dark ${inter.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="bg-terrain-dark font-sans antialiased [&:has(.custom-cursor)]:cursor-none">
+      <body className="bg-terrain-dark font-sans antialiased">
         <CustomCursor />
         {children}
       </body>

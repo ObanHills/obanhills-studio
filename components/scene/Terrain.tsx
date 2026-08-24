@@ -1,6 +1,6 @@
 "use client";
 // components/scene/Terrain.tsx
-// Procedural heightmap wireframe terrain with subtle theme-calibrated materials.
+// Procedural heightmap wireframe terrain with mobile-optimised segment count.
 
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -10,20 +10,24 @@ import { useStudioStore } from "@/lib/store";
 
 const noise2D = createNoise2D();
 
-const SEGMENTS = 100;
 const SIZE = 30;
 const NOISE_SCALE = 0.18;
 const MAX_HEIGHT = 2.0;
 
-export function Terrain() {
+interface TerrainProps {
+  isMobile?: boolean;
+}
+
+export function Terrain({ isMobile = false }: TerrainProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const theme = useStudioStore((s) => s.theme);
   const isDark = theme === "dark";
 
-  // Build the geometry with noise-displaced vertices
+  const SEGMENTS = isMobile ? 48 : 100;
+
   const geometry = useMemo(() => {
     const geo = new THREE.PlaneGeometry(SIZE, SIZE, SEGMENTS, SEGMENTS);
-    geo.rotateX(-Math.PI / 2); // Lay flat
+    geo.rotateX(-Math.PI / 2);
 
     const positions = geo.attributes.position;
 
@@ -31,7 +35,6 @@ export function Terrain() {
       const x = positions.getX(i);
       const z = positions.getZ(i);
       const noise = noise2D(x * NOISE_SCALE, z * NOISE_SCALE);
-      // Map noise [-1,1] → [0, MAX_HEIGHT], but keep edges at 0 for clean boundary
       const distFromCenter = Math.sqrt(x * x + z * z) / (SIZE * 0.5);
       const edgeFade = Math.max(0, 1 - distFromCenter * 1.1);
       positions.setY(i, noise * MAX_HEIGHT * edgeFade);
@@ -39,15 +42,14 @@ export function Terrain() {
 
     geo.computeVertexNormals();
     return geo;
-  }, []);
+  }, [SEGMENTS]);
 
-  // Slow breathing animation
   useFrame(({ clock }) => {
     if (meshRef.current) {
       const mat = meshRef.current.material as THREE.MeshStandardMaterial;
       const t = clock.getElapsedTime() * 0.05;
       mat.wireframeLinewidth = 1;
-      mat.emissiveIntensity = (isDark ? 0.14 : 0.06) + Math.sin(t * 2) * 0.02;
+      mat.emissiveIntensity = (isDark ? 0.14 : 0.08) + Math.sin(t * 2) * 0.02;
     }
   });
 
@@ -64,3 +66,4 @@ export function Terrain() {
     </mesh>
   );
 }
+
