@@ -84,7 +84,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
               href="#about"
               className={isDark ? "hover:text-white" : "hover:text-slate-950"}
             >
-              About Obande
+              About
             </a>
             <a
               href="#contact"
@@ -180,7 +180,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
             onClick={() => setMobileMenuOpen(false)}
             className="py-1 hover:text-[#00e5a3]"
           >
-            About Obande
+            About
           </a>
           <a
             href="#contact"
