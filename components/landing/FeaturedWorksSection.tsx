@@ -98,11 +98,13 @@ function ProjectCard({
   onOpen,
   isDark,
   priority,
+  onCardClick,
 }: {
   project: Project;
   onOpen: (slug: string) => void;
   isDark: boolean;
   priority?: boolean;
+  onCardClick: () => boolean; // returns true if click should be suppressed (was a drag)
 }) {
   const [hovered, setHovered] = useState(false);
   const accent = project.color ?? "#00e5a3";
@@ -121,7 +123,11 @@ function ProjectCard({
       style={{ width: "min(820px, 88vw)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => onOpen(project.slug)}
+      onClick={(e) => {
+        // Don't open panel if the user was dragging the carousel
+        if (onCardClick()) return;
+        onOpen(project.slug);
+      }}
     >
       {/* Fanned image panel — left */}
       <div
@@ -230,6 +236,7 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
   const animRef = useRef<number>(0);
   const pausedRef = useRef(false);
   const isDragging = useRef(false);
+  const didDrag = useRef(false);        // true only if pointer actually moved > threshold
   const dragStartX = useRef(0);
   const dragScrollStart = useRef(0);
 
@@ -278,9 +285,12 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
 
   // Drag-to-scroll (desktop)
   const onPointerDown = (e: React.PointerEvent) => {
+    // Only hijack primary mouse button or single touch
+    if (e.pointerType === "mouse" && e.button !== 0) return;
     const el = trackRef.current;
     if (!el) return;
     isDragging.current = true;
+    didDrag.current = false;
     pausedRef.current = true;
     dragStartX.current = e.clientX;
     dragScrollStart.current = el.scrollLeft;
@@ -292,12 +302,23 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     const el = trackRef.current;
     if (!el) return;
     const delta = dragStartX.current - e.clientX;
-    el.scrollLeft = dragScrollStart.current + delta;
+    // Only start scrolling after 6px of movement — preserves click intent
+    if (Math.abs(delta) > 6) {
+      didDrag.current = true;
+      el.scrollLeft = dragScrollStart.current + delta;
+    }
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e: React.PointerEvent) => {
     isDragging.current = false;
     pausedRef.current = false;
+    // If the pointer barely moved, it was a click — release capture so the
+    // click event propagates normally to the card / buttons inside it
+    if (!didDrag.current) {
+      const el = trackRef.current;
+      try { el?.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    didDrag.current = false;
   };
 
   return (
@@ -376,7 +397,7 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
+          onPointerCancel={() => { isDragging.current = false; pausedRef.current = false; didDrag.current = false; }}
         >
           {/* Render list twice for seamless loop */}
           {[...filtered, ...filtered].map((project, idx) => (
@@ -386,6 +407,7 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
               onOpen={setActiveProject}
               isDark={isDark}
               priority={idx < 2}
+              onCardClick={() => didDrag.current}
             />
           ))}
         </div>
