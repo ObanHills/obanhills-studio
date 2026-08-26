@@ -2,10 +2,14 @@
 // components/ui/ProjectPanel.tsx
 // Slide-in right-side panel showing full project detail with dark and light mode adaptation.
 // Features multi-image carousel slider, lightbox expand, likes, real-time comments, and external links.
+//
+// Improvement: project.color is wired as --panel-accent CSS custom property on the
+// panel element so every accent detail (top bar glow, divider, dot, thumbnail ring)
+// automatically adopts the node's individual color — bridging the 3D world and 2D UI.
 
 import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Calendar, ChevronLeft, ChevronRight, Maximize2, Tag } from "lucide-react";
+import { X, ExternalLink, Calendar, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
 import { LikeButton } from "./LikeButton";
@@ -22,6 +26,9 @@ export function ProjectPanel() {
   const project = activeProjectSlug
     ? projects.find((p) => p.slug === activeProjectSlug) ?? null
     : null;
+
+  // The node's individual accent color — falls back to brand teal
+  const accent = project?.color ?? "#00e5a3";
 
   // Reset active image when switching projects
   useEffect(() => {
@@ -82,25 +89,26 @@ export function ProjectPanel() {
             className="fixed inset-0 z-30 bg-black/60 backdrop-blur-[2px] md:hidden"
           />
 
-          {/* Panel */}
+          {/* Panel — --panel-accent drives all accent details inside */}
           <motion.aside
             key="panel"
             initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 280, damping: 30 }}
+            style={{ "--panel-accent": accent } as React.CSSProperties}
             className={`fixed right-0 top-0 z-40 h-full w-full overflow-y-auto shadow-2xl backdrop-blur-2xl sm:w-[440px] transition-colors ${
               isDark
                 ? "border-l border-white/[0.08] bg-[#0c1017]/95 text-white"
                 : "border-l border-slate-200 bg-white/95 text-slate-900"
             }`}
           >
-            {/* Top accent line */}
+            {/* Top accent line — uses node color via CSS var */}
             <div
               className="h-[2px] w-full"
               style={{
-                background: `linear-gradient(90deg, transparent, ${project.color ?? "#00e5a3"}, transparent)`,
-                boxShadow: `0 0 12px ${project.color ?? "#00e5a3"}80`,
+                background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
+                boxShadow: `0 0 12px ${accent}80`,
               }}
             />
 
@@ -131,14 +139,30 @@ export function ProjectPanel() {
                   <>
                     <button
                       onClick={handlePrevImage}
-                      className="absolute left-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white/80 hover:bg-[#00e5a3] hover:text-black transition-colors backdrop-blur-sm"
+                      className="absolute left-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white/80 backdrop-blur-sm transition-colors"
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = accent;
+                        (e.currentTarget as HTMLElement).style.color = "#000";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.6)";
+                        (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.8)";
+                      }}
                       title="Previous"
                     >
                       <ChevronLeft size={16} />
                     </button>
                     <button
                       onClick={handleNextImage}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white/80 hover:bg-[#00e5a3] hover:text-black transition-colors backdrop-blur-sm"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white/80 backdrop-blur-sm transition-colors"
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = accent;
+                        (e.currentTarget as HTMLElement).style.color = "#000";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.6)";
+                        (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.8)";
+                      }}
                       title="Next"
                     >
                       <ChevronRight size={16} />
@@ -153,7 +177,13 @@ export function ProjectPanel() {
                 {/* Lightbox Trigger */}
                 <button
                   onClick={() => setLightboxOpen(true)}
-                  className="absolute bottom-2.5 left-3 flex items-center gap-1.5 rounded-full bg-black/75 px-2.5 py-1 text-[10px] font-medium text-white/90 hover:text-[#00e5a3] backdrop-blur-sm transition-colors"
+                  className="absolute bottom-2.5 left-3 flex items-center gap-1.5 rounded-full bg-black/75 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm transition-colors"
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = accent;
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.9)";
+                  }}
                 >
                   <Maximize2 size={11} /> Expand
                 </button>
@@ -169,11 +199,20 @@ export function ProjectPanel() {
                     onClick={() => setActiveImageIndex(i)}
                     className={`relative h-12 w-16 shrink-0 overflow-hidden rounded-lg border transition-all ${
                       activeImageIndex === i
-                        ? "border-[#00e5a3] shadow-[0_0_8px_rgba(0,229,163,0.4)] ring-1 ring-[#00e5a3]"
+                        ? "opacity-100"
                         : isDark
                         ? "border-white/10 opacity-50 hover:opacity-100"
                         : "border-slate-300 opacity-60 hover:opacity-100"
                     }`}
+                    style={
+                      activeImageIndex === i
+                        ? {
+                            borderColor: accent,
+                            boxShadow: `0 0 8px ${accent}66`,
+                            outline: `1px solid ${accent}`,
+                          }
+                        : {}
+                    }
                   >
                     <Image src={img} alt={`Thumb ${i + 1}`} fill className="object-cover" unoptimized />
                   </button>
@@ -188,10 +227,10 @@ export function ProjectPanel() {
                   {/* Category / Node color dot */}
                   <div className="flex items-center gap-2">
                     <span
-                      className="h-2 w-2 rounded-full shadow-[0_0_6px]"
+                      className="h-2 w-2 rounded-full"
                       style={{
-                        background: project.color,
-                        boxShadow: `0 0 8px ${project.color}`,
+                        background: accent,
+                        boxShadow: `0 0 8px ${accent}`,
                       }}
                     />
                     <span
@@ -225,10 +264,10 @@ export function ProjectPanel() {
                 </button>
               </div>
 
-              {/* Divider */}
+              {/* Divider — node accent color */}
               <div
                 className="h-px w-full opacity-30"
-                style={{ background: project.color }}
+                style={{ background: accent }}
               />
 
               {/* Description */}
@@ -259,7 +298,18 @@ export function ProjectPanel() {
                   href={project.project_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-[#00e5a3]/40 bg-[#00e5a3]/10 py-3 text-xs font-semibold tracking-wider text-[#008f66] dark:text-[#00e5a3] transition-colors hover:bg-[#00e5a3]/20 shadow-xs"
+                  className="flex items-center justify-center gap-2 rounded-xl border py-3 text-xs font-semibold tracking-wider transition-colors shadow-xs"
+                  style={{
+                    borderColor: `${accent}66`,
+                    background: `${accent}1a`,
+                    color: isDark ? accent : `${accent}cc`,
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = `${accent}33`;
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = `${accent}1a`;
+                  }}
                 >
                   <ExternalLink size={13} />
                   View Live Project
@@ -312,13 +362,29 @@ export function ProjectPanel() {
                     <>
                       <button
                         onClick={handlePrevImage}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-3 text-white hover:bg-[#00e5a3] hover:text-black transition-colors"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-3 text-white transition-colors"
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = accent;
+                          (e.currentTarget as HTMLElement).style.color = "#000";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.7)";
+                          (e.currentTarget as HTMLElement).style.color = "#fff";
+                        }}
                       >
                         <ChevronLeft size={20} />
                       </button>
                       <button
                         onClick={handleNextImage}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-3 text-white hover:bg-[#00e5a3] hover:text-black transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-3 text-white transition-colors"
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = accent;
+                          (e.currentTarget as HTMLElement).style.color = "#000";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.7)";
+                          (e.currentTarget as HTMLElement).style.color = "#fff";
+                        }}
                       >
                         <ChevronRight size={20} />
                       </button>

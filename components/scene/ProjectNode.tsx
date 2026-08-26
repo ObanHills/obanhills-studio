@@ -2,6 +2,13 @@
 // components/scene/ProjectNode.tsx
 // Refined, luxury 3D project node with grounded hologram beacon, dark glass framed artwork,
 // smooth tilt physics, subtle polished hover lift, and minimalist typography.
+//
+// Improvements:
+//  - pre-allocated _scaleVec ref: reused every frame instead of allocating
+//    new THREE.Vector3 at 60fps — eliminates per-frame GC pressure
+//  - frame-delta guard: skips animation when delta spikes (tab-out, slow device)
+//  - prefers-reduced-motion: disables floating bob and scale pulse; node stays
+//    static and still fully interactive
 
 import { useRef, useState, useMemo, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
@@ -10,6 +17,9 @@ import * as THREE from "three";
 import { useStudioStore } from "@/lib/store";
 import { LikeParticles } from "./LikeParticles";
 import type { Project } from "@/types";
+
+// Maximum delta we'll act on — guards against jumps after tab switch / device stall
+const MAX_DELTA = 0.05;
 
 interface ProjectNodeProps {
   project: Project;
@@ -24,6 +34,15 @@ export function ProjectNode({ project }: ProjectNodeProps) {
   const [hovered, setHovered] = useState(false);
   const [particleTriggered, setParticleTriggered] = useState(false);
   const prevLikeCount = useRef(project.likes_count);
+
+  // prefers-reduced-motion — captured once at mount
+  const reducedMotion = useRef(
+    typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  // Pre-allocated scale vector — reused every frame, zero GC pressure
+  const _scaleVec = useRef(new THREE.Vector3());
 
   // Fire particle burst when likes_count increases
   useEffect(() => {
@@ -54,8 +73,15 @@ export function ProjectNode({ project }: ProjectNodeProps) {
   }, [cover_image_url, gl]);
 
   // Dynamic animation and hover interaction
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!groupRef.current) return;
+
+    // Guard: skip when frame took too long to prevent animation debt
+    if (delta > MAX_DELTA) return;
+
+    // When reduced motion is on, skip all animation — node is static
+    if (reducedMotion.current) return;
+
     const t = clock.getElapsedTime();
     const seed = (position?.[0] ?? 0) * 1.5;
 
@@ -65,12 +91,10 @@ export function ProjectNode({ project }: ProjectNodeProps) {
     const targetY = baseY + hoverLift + Math.sin(t * 1.2 + seed) * 0.08;
     groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, 0.08);
 
-    // Tasteful, refined hover scale (1.18x)
+    // Tasteful, refined hover scale (1.18x) — reuse pre-allocated vector
     const targetScale = hovered || isActive ? 1.18 : 1.0;
-    groupRef.current.scale.lerp(
-      new THREE.Vector3(targetScale, targetScale, targetScale),
-      0.1
-    );
+    _scaleVec.current.setScalar(targetScale);
+    groupRef.current.scale.lerp(_scaleVec.current, 0.1);
 
     // Card orientation: faces camera gently with smooth damping
     if (cardGroupRef.current) {

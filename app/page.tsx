@@ -19,6 +19,8 @@ import { ServicesSection } from "@/components/landing/ServicesSection";
 import { AboutSection } from "@/components/landing/AboutSection";
 import { ContactSection } from "@/components/landing/ContactSection";
 import { Footer } from "@/components/landing/Footer";
+import { ScrollProgressBar } from "@/components/landing/ScrollProgressBar";
+import { LandingRouteRail } from "@/components/landing/LandingRouteRail";
 
 // Dynamically import the 3D canvas (no SSR)
 const SceneCanvas = dynamic(
@@ -43,6 +45,9 @@ export default function HomePage() {
           : "bg-[#faf9f7] text-slate-900 selection:bg-[#00e5a3]/30 selection:text-[#008f66]"
       }`}
     >
+      {/* Scroll progress bar — pinned above everything, hidden in 3D mode */}
+      {!is3DMode && <ScrollProgressBar />}
+
       {/* 3D Background Canvas */}
       <div
         className={`fixed inset-0 transition-opacity duration-700 ${
@@ -72,13 +77,15 @@ export default function HomePage() {
       {/* Scrollable Landing Page (Active when not in 3D Mode) */}
       {!is3DMode && (
         <div className="relative z-10 flex flex-col">
-          {/* Hero */}
-          <HeroSection
-            projects={projects}
-            onExplore3D={() => setIs3DMode(true)}
-          />
+          {/* Hero — id="hero" for IntersectionObserver in LandingRouteRail */}
+          <section id="hero">
+            <HeroSection
+              projects={projects}
+              onExplore3D={() => setIs3DMode(true)}
+            />
+          </section>
 
-          {/* Selected Works */}
+          {/* Selected Works — id="works" lives on the inner <section> inside FeaturedWorksSection */}
           <FeaturedWorksSection projects={projects} />
 
           {/* Services & Capabilities */}
@@ -94,6 +101,9 @@ export default function HomePage() {
           <Footer />
         </div>
       )}
+
+      {/* Route rail dot nav — right-side section navigator, desktop only */}
+      <LandingRouteRail is3DMode={is3DMode} />
 
       {/* Common UI Overlays */}
       <LoadingScreen />
