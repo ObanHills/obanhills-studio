@@ -30,7 +30,7 @@ export function AboutSection() {
   const isDark = theme === "dark";
 
   return (
-    <section id="about" className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto">
+    <section id="about" className="relative py-16 px-6 md:px-12 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
         {/* ── Left: Narrative ───────────────────────────────────────────────── */}
@@ -39,7 +39,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-6 flex flex-col gap-8 lg:pt-4"
+          className="lg:col-span-7 flex flex-col gap-7 lg:pt-2"
         >
           {/* Eyebrow */}
           <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export function AboutSection() {
           </div>
 
           {/* Headline */}
-          <h2 className={`font-display text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] ${isDark ? "text-white" : "text-slate-950"}`}>
+          <h2 className={`font-display text-3xl sm:text-4xl font-bold tracking-tight leading-[1.1] ${isDark ? "text-white" : "text-slate-950"}`}>
             Hi, I&apos;m{" "}
             <span className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}>
               Obande
@@ -146,7 +146,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="lg:col-span-6 relative"
+          className="lg:col-span-5 relative"
         >
           {/* Outer glow */}
           <div
@@ -155,15 +155,15 @@ export function AboutSection() {
           />
 
           <div className={`relative overflow-hidden rounded-3xl ${isDark ? "bg-[#0a0f16]" : "bg-slate-100"}`}
-            style={{ aspectRatio: "4/5" }}
+            style={{ aspectRatio: "3/4", maxHeight: "560px" }}
           >
-            {/* Photo — full bleed, face framing */}
+            {/* Photo — full bleed, face centred */}
             <Image
               src="/obande.jpg"
               alt="Obande Sunday Itodo"
               fill
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 100vw, 560px"
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 480px"
               priority
             />
 
