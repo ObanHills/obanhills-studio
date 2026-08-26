@@ -1,39 +1,48 @@
 "use client";
 // components/landing/ServicesSection.tsx
-// Core studio capabilities and creative disciplines with dark/light mode adaptation.
+// Portrait minimal service cards — tall, narrow, clean.
+// Four cards in a horizontal row on desktop, 2-col on tablet, 1-col on mobile.
 
 import { motion } from "framer-motion";
-import { Palette, Box, Cpu, Compass, Layout, Sparkles } from "lucide-react";
+import { Palette, Box, Cpu, Layout } from "lucide-react";
 import { useStudioStore } from "@/lib/store";
 
 const SERVICES = [
   {
     icon: Palette,
+    number: "01",
     title: "Brand Identity & Visual Suites",
     description:
-      "Full-spectrum visual systems, event branding kits, promotional posters, flyers, custom typography, and digital brand assets built to establish a dominant, memorable presence.",
-    tags: ["Visual Identity", "Event Branding", "Photoshop", "Typography"],
+      "Full-spectrum visual systems, event branding kits, promotional posters, flyers, and digital brand assets built to establish a dominant, memorable presence.",
+    tags: ["Visual Identity", "Event Branding", "Typography"],
+    accent: "#00e5a3",
   },
   {
     icon: Box,
+    number: "02",
     title: "Interactive 3D & Spatial Web",
     description:
-      "Immersive 3D environments, procedural digital terrains, interactive node architectures, and WebGL experiences built on React Three Fiber and Three.js.",
-    tags: ["Three.js", "React Three Fiber", "WebGL", "Next.js"],
+      "Immersive 3D environments, procedural digital terrains, interactive node architectures, and WebGL experiences built on React Three Fiber.",
+    tags: ["Three.js", "WebGL", "Next.js"],
+    accent: "#38bdf8",
   },
   {
     icon: Cpu,
+    number: "03",
     title: "AI Workflows & Generative Media",
     description:
-      "Leveraging state-of-the-art artificial intelligence models for typeface design, generative graphics, procedural asset pipelines, and automated creative production.",
-    tags: ["Machine Learning", "Generative Visuals", "Creative Tech", "AI Systems"],
+      "State-of-the-art AI models for typeface design, generative graphics, procedural asset pipelines, and automated creative production.",
+    tags: ["Generative Visuals", "AI Systems", "Creative Tech"],
+    accent: "#a78bfa",
   },
   {
     icon: Layout,
+    number: "04",
     title: "UI/UX & Digital Product Design",
     description:
-      "Futuristic, high-conversion interfaces and design systems engineered with micro-interactions, responsive physics, and glassmorphic precision.",
-    tags: ["Figma", "Tailwind CSS", "Framer Motion", "Design Systems"],
+      "High-conversion interfaces and design systems engineered with micro-interactions, responsive physics, and glassmorphic precision.",
+    tags: ["Figma", "Framer Motion", "Design Systems"],
+    accent: "#f59e0b",
   },
 ];
 
@@ -43,81 +52,100 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto">
+
       {/* Header */}
-      <div className="max-w-2xl mb-16">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3]" />
-          <span
-            className={`text-xs font-semibold uppercase tracking-[0.2em] ${
-              isDark ? "text-[#00e5a3]" : "text-[#0d9488]"
-            }`}
-          >
-            Capabilities
-          </span>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3]" />
+            <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}`}>
+              Capabilities
+            </span>
+          </div>
+          <h2 className={`font-display text-3xl md:text-5xl font-bold tracking-tight max-w-xl ${isDark ? "text-white" : "text-slate-950"}`}>
+            What I bring to every project.
+          </h2>
         </div>
-        <h2
-          className={`font-display text-3xl md:text-5xl font-bold tracking-tight ${
-            isDark ? "text-white" : "text-slate-950"
-          }`}
-        >
-          Crafting at the Intersection of Design, 3D & Artificial Intelligence.
-        </h2>
+        <p className={`max-w-xs text-sm leading-relaxed ${isDark ? "text-white/50" : "text-slate-500"}`}>
+          Four disciplines. One cohesive vision. Every engagement is handled end-to-end.
+        </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Portrait Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {SERVICES.map((service, idx) => {
           const Icon = service.icon;
           return (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={`group relative flex flex-col justify-between rounded-2xl border p-8 backdrop-blur-xl transition-all duration-300 ${
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className={`group relative flex flex-col justify-between rounded-2xl border overflow-hidden transition-all duration-300 ${
                 isDark
-                  ? "border-white/[0.08] bg-[#0c1017]/80 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:border-[#00e5a3]/40 hover:bg-[#0f1520]"
-                  : "border-slate-200/80 bg-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:border-[#00e5a3] hover:shadow-xl"
+                  ? "border-white/[0.07] bg-[#0c1017]/80 hover:border-white/[0.15]"
+                  : "border-slate-200/80 bg-white/95 hover:border-slate-300 shadow-[0_2px_16px_rgba(0,0,0,0.05)]"
               }`}
+              style={{ minHeight: "380px" }}
             >
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 text-[#00e5a3] shadow-[0_0_16px_rgba(0,229,163,0.15)] mb-6 transition-all group-hover:scale-110 group-hover:border-[#00e5a3]/60">
-                  <Icon size={22} />
+              {/* Accent top strip */}
+              <div
+                className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)`,
+                  opacity: 0.7,
+                }}
+              />
+
+              {/* Subtle glow */}
+              <div
+                className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `${service.accent}18` }}
+              />
+
+              <div className="flex flex-col gap-5 p-7">
+                {/* Number */}
+                <span
+                  className="font-display text-[11px] font-bold tracking-[0.25em] opacity-30"
+                  style={{ color: service.accent }}
+                >
+                  {service.number}
+                </span>
+
+                {/* Icon */}
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    borderColor: `${service.accent}33`,
+                    background: `${service.accent}12`,
+                    color: service.accent,
+                    boxShadow: `0 0 14px ${service.accent}18`,
+                  }}
+                >
+                  <Icon size={20} />
                 </div>
 
-                <h3
-                  className={`font-display text-xl font-bold transition-colors mb-3 ${
-                    isDark
-                      ? "text-white group-hover:text-[#00e5a3]"
-                      : "text-slate-900 group-hover:text-[#0d9488]"
-                  }`}
-                >
+                {/* Title */}
+                <h3 className={`font-display text-lg font-bold leading-snug ${isDark ? "text-white" : "text-slate-900"}`}>
                   {service.title}
                 </h3>
 
-                <p
-                  className={`text-sm leading-relaxed ${
-                    isDark ? "text-white/60" : "text-slate-600"
-                  }`}
-                >
+                {/* Description */}
+                <p className={`text-xs leading-relaxed ${isDark ? "text-white/50" : "text-slate-500"}`}>
                   {service.description}
                 </p>
               </div>
 
-              {/* Tags */}
-              <div
-                className={`flex flex-wrap gap-2 pt-6 mt-6 border-t ${
-                  isDark ? "border-white/[0.06]" : "border-slate-100"
-                }`}
-              >
+              {/* Tags — pinned to bottom */}
+              <div className={`flex flex-wrap gap-1.5 px-7 pb-7 mt-auto border-t pt-5 ${isDark ? "border-white/[0.05]" : "border-slate-100"}`}>
                 {service.tags.map((tag) => (
                   <span
                     key={tag}
-                    className={`rounded-lg border px-2.5 py-1 text-[11px] font-medium ${
+                    className={`rounded-md px-2.5 py-1 text-[10px] font-medium border ${
                       isDark
-                        ? "border-white/[0.06] bg-white/[0.02] text-white/50"
-                        : "border-slate-200 bg-slate-50 text-slate-600"
+                        ? "border-white/[0.06] bg-white/[0.02] text-white/40"
+                        : "border-slate-200 bg-slate-50 text-slate-500"
                     }`}
                   >
                     {tag}
