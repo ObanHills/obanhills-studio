@@ -278,7 +278,7 @@ export function ProjectNode({ project }: ProjectNodeProps) {
             </span>
             <span
               style={{
-                fontFamily: "var(--font-display), serif",
+                fontFamily: "var(--font-display), system-ui, sans-serif",
                 fontSize: "12px",
                 fontWeight: 600,
                 color: "#ffffff",
