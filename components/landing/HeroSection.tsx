@@ -65,24 +65,25 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
           Visual Realities.
         </motion.h1>
 
-        {/* Subheading */}
+        {/* Subheading — one sharp sentence, not a service menu */}
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-base sm:text-lg leading-relaxed max-w-2xl font-normal ${
+          className={`text-base sm:text-lg leading-relaxed max-w-xl font-normal ${
             isDark ? "text-white/75" : "text-slate-700"
           }`}
         >
-          Led by{" "}
+          I build brands that hold — and digital experiences people don't forget.
+          {" "}
           <strong
             className={`font-semibold ${
-              isDark ? "text-white" : "text-slate-950"
+              isDark ? "text-white/90" : "text-slate-900"
             }`}
           >
             Obande Sunday Itodo
-          </strong>{" "}
-          — crafting bespoke brand suites, high-impact promotional aesthetics, artificial intelligence workflows, and spatial 3D web environments.
+          </strong>
+          , Creative Director & Spatial Web Engineer.
         </motion.p>
 
         {/* Action Buttons */}
