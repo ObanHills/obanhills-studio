@@ -2,18 +2,27 @@
 // Root layout — loads fonts, sets metadata, applies dark mode class.
 
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+// Display / headings — high-contrast editorial serif
+// Deliberately avoids the AI-default Inter + Space Grotesk pairing.
+// The thin/thick stroke contrast elevates the gold headline and gives
+// the brand's "Uniquely Classic" positioning a typographic anchor.
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+// Body / UI — geometric sans, warmer than Inter, pairs cleanly with
+// editorial serifs and handles small labels and admin UI well.
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -90,7 +99,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${spaceGrotesk.variable}`}
+      className={`dark ${cormorantGaramond.variable} ${dmSans.variable}`}
     >
       <body className="bg-terrain-dark font-sans antialiased">
         {children}

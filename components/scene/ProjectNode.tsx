@@ -266,7 +266,7 @@ export function ProjectNode({ project }: ProjectNodeProps) {
           >
             <span
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-sans), sans-serif",
                 fontSize: "9px",
                 fontWeight: 600,
                 letterSpacing: "0.15em",
@@ -278,7 +278,7 @@ export function ProjectNode({ project }: ProjectNodeProps) {
             </span>
             <span
               style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-display), serif",
                 fontSize: "12px",
                 fontWeight: 600,
                 color: "#ffffff",

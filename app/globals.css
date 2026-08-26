@@ -4,8 +4,8 @@
 
 /* ── CSS Custom Properties ──────────────────────────────────────────────────── */
 :root {
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-space-grotesk: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
 }
 
 /* ── Base resets ─────────────────────────────────────────────────────────────── */

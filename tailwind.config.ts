@@ -19,8 +19,8 @@ const config: Config = {
         "panel-border": "rgba(0, 255, 213, 0.15)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
       },
       backdropBlur: {
         xs: "2px",
