@@ -1,248 +1,218 @@
 "use client";
 // components/landing/AboutSection.tsx
-// About the Founder & Lead: Obande Sunday Itodo and the Uniquely Classic philosophy.
+// Redesigned: editorial magazine layout — full-bleed portrait on the right,
+// clean narrative on the left. Less widget, more presence.
 
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
+
+const STACK = [
+  "Adobe Photoshop",
+  "Next.js & React",
+  "Three.js / WebGL",
+  "Generative AI & ML",
+  "Tailwind CSS",
+  "Supabase",
+  "Framer Motion",
+  "Event Identity",
+];
+
+const STATS = [
+  { value: "2024", label: "Founded" },
+  { value: "10+", label: "Projects" },
+  { value: "3", label: "Disciplines" },
+];
 
 export function AboutSection() {
   const theme = useStudioStore((s) => s.theme);
   const isDark = theme === "dark";
 
-  const stack = [
-    "Adobe Photoshop",
-    "Next.js & React",
-    "Three.js / WebGL",
-    "Generative AI & ML",
-    "Tailwind CSS",
-    "Supabase & PostgreSQL",
-    "Framer Motion",
-    "Graphic & Event Identity",
-  ];
-
   return (
     <section id="about" className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-        {/* Left Narrative */}
-        <div className="lg:col-span-7 flex flex-col gap-6">
+        {/* ── Left: Narrative ───────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-6 flex flex-col gap-8 lg:pt-4"
+        >
+          {/* Eyebrow */}
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3]" />
-            <span
-              className={`text-xs font-semibold uppercase tracking-[0.2em] ${
-                isDark ? "text-[#00e5a3]" : "text-[#0d9488]"
-              }`}
-            >
+            <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}`}>
               The Vision & Founder
             </span>
           </div>
 
-          <h2
-            className={`font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ${
-              isDark ? "text-white" : "text-slate-950"
-            }`}
-          >
+          {/* Headline */}
+          <h2 className={`font-display text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] ${isDark ? "text-white" : "text-slate-950"}`}>
             Hi, I&apos;m{" "}
             <span className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"}>
-              Obande Sunday Itodo
-            </span>{" "}
-            — CEO &amp; Lead Creative at ObanHills.
+              Obande
+            </span>
+            <br />Sunday Itodo.
           </h2>
 
-          <div
-            className={`flex flex-col gap-4 text-sm sm:text-base leading-relaxed ${
-              isDark ? "text-white/70" : "text-slate-700"
-            }`}
-          >
+          {/* Role line */}
+          <p className={`text-sm font-semibold uppercase tracking-[0.15em] -mt-4 ${isDark ? "text-white/40" : "text-slate-500"}`}>
+            CEO & Lead Creative · ObanHills Studio
+          </p>
+
+          {/* Body copy */}
+          <div className={`flex flex-col gap-4 text-sm leading-[1.8] ${isDark ? "text-white/65" : "text-slate-600"}`}>
             <p>
-              I bridge the gap between{" "}
-              <strong className={isDark ? "text-white" : "text-slate-900"}>
-                classic visual aesthetics
-              </strong>{" "}
-              and{" "}
-              <strong className={isDark ? "text-white" : "text-slate-900"}>
-                futuristic interactive technology
-              </strong>
-              . From designing prominent visual identities for major tech summits like the{" "}
-              <em>Jos TechFest AI Summit 2025</em> to engineering living 3D digital worlds, my work
-              is driven by one core philosophy:
+              I bridge{" "}
+              <strong className={isDark ? "text-white/90" : "text-slate-900"}>classic visual craft</strong>{" "}
+              with{" "}
+              <strong className={isDark ? "text-white/90" : "text-slate-900"}>futuristic interactive technology</strong>.
+              From brand identities for major tech events to living 3D digital worlds — every project is built on one belief:
             </p>
-            <blockquote
-              className={`my-2 border-l-2 border-[#00e5a3] pl-4 py-1 font-display text-lg font-medium italic ${
-                isDark ? "text-white/90" : "text-slate-800"
-              }`}
-            >
-              &ldquo;Uniquely Classic — creating visual experiences that feel timelessly structured
-              yet undeniably ahead of their time.&rdquo;
-            </blockquote>
+
+            {/* Pull quote */}
+            <div className={`relative pl-5 py-1 border-l-2 border-[#00e5a3]`}>
+              <p className={`font-display text-base font-semibold italic leading-relaxed ${isDark ? "text-white/90" : "text-slate-800"}`}>
+                &ldquo;Uniquely Classic — visual experiences that feel timeless yet undeniably ahead.&rdquo;
+              </p>
+            </div>
+
             <p>
-              Whether partnering with brands for full-scale visual suites, directing high-impact
-              creative campaigns, or crafting interactive spatial web applications, every project is
-              delivered with meticulous precision.
+              Every commission — brand suite, spatial web app, or AI-driven campaign — is delivered with
+              the same meticulous precision, whether for a startup or a summit.
             </p>
           </div>
 
-          {/* Toolkit Pills */}
-          <div className="pt-4">
-            <span
-              className={`text-xs font-semibold uppercase tracking-wider mb-3 block ${
-                isDark ? "text-white/40" : "text-slate-500"
-              }`}
-            >
-              Core Toolkit &amp; Creative Stack
+          {/* Stats strip */}
+          <div className={`flex items-center gap-8 pt-2 border-t ${isDark ? "border-white/[0.07]" : "border-slate-200"}`}>
+            {STATS.map((s) => (
+              <div key={s.label} className="flex flex-col gap-0.5">
+                <span className={`font-display text-2xl font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
+                  {s.value}
+                </span>
+                <span className={`text-[10px] uppercase tracking-[0.15em] font-semibold ${isDark ? "text-white/35" : "text-slate-500"}`}>
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Stack pills */}
+          <div className="flex flex-col gap-3">
+            <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${isDark ? "text-white/30" : "text-slate-400"}`}>
+              Core Stack
             </span>
-            <div className="flex flex-wrap gap-2.5">
-              {stack.map((item) => (
+            <div className="flex flex-wrap gap-2">
+              {STACK.map((item) => (
                 <span
                   key={item}
-                  className={`flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 text-xs font-medium ${
+                  className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-medium ${
                     isDark
-                      ? "border-white/[0.08] bg-[#0c1017] text-white/80"
-                      : "border-slate-200 bg-white text-slate-700 shadow-xs"
+                      ? "border-white/[0.07] bg-white/[0.03] text-white/60"
+                      : "border-slate-200 bg-slate-50 text-slate-600"
                   }`}
                 >
-                  <CheckCircle2 size={13} className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"} />
-                  <span>{item}</span>
+                  <CheckCircle2 size={11} className={isDark ? "text-[#00e5a3]" : "text-[#0d9488]"} />
+                  {item}
                 </span>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Right Feature Card */}
-        <div className="lg:col-span-5">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className={`relative rounded-3xl border overflow-hidden backdrop-blur-2xl ${
-              isDark
-                ? "border-white/[0.1] bg-gradient-to-b from-[#0e141d] to-[#070a0f] shadow-[0_24px_64px_rgba(0,0,0,0.6)]"
-                : "border-slate-200 bg-gradient-to-b from-white to-slate-50 shadow-[0_16px_48px_rgba(0,0,0,0.08)]"
-            }`}
+          {/* CTA */}
+          <div className="flex items-center gap-4 pt-2">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#00e5a3] bg-[#00e5a3] px-6 py-3 text-xs font-bold uppercase tracking-wider text-black shadow-[0_0_20px_rgba(0,229,163,0.25)] transition-all hover:bg-[#00ffd5] hover:shadow-[0_0_32px_rgba(0,229,163,0.4)]"
+            >
+              Let&apos;s Build Together
+              <ArrowUpRight size={13} />
+            </a>
+            <a
+              href="mailto:Obanhillsconnect@gmail.com"
+              className={`text-xs font-semibold underline underline-offset-4 transition-colors ${isDark ? "text-white/40 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}
+            >
+              Obanhillsconnect@gmail.com
+            </a>
+          </div>
+        </motion.div>
+
+        {/* ── Right: Editorial portrait ──────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="lg:col-span-6 relative"
+        >
+          {/* Outer glow */}
+          <div
+            className="pointer-events-none absolute -inset-4 rounded-[2rem] blur-3xl opacity-30"
+            style={{ background: "radial-gradient(ellipse at 60% 40%, #00e5a320, transparent 70%)" }}
+          />
+
+          <div className={`relative overflow-hidden rounded-3xl ${isDark ? "bg-[#0a0f16]" : "bg-slate-100"}`}
+            style={{ aspectRatio: "4/5" }}
           >
-            {/* Glowing Accent */}
-            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#00e5a3]/10 blur-3xl pointer-events-none z-0" />
+            {/* Photo — full bleed, face framing */}
+            <Image
+              src="/obande.jpg"
+              alt="Obande Sunday Itodo"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 560px"
+              priority
+            />
 
-            {/* Large Portrait — full width, head fully visible */}
-            <div className="relative w-full h-80 sm:h-96 overflow-hidden">
-              <Image
-                src="/obande.jpg"
-                alt="Obande Sunday Itodo"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 480px"
-                priority
-              />
-              {/* Gradient fade into card body */}
-              <div
-                className={`absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t ${
-                  isDark ? "from-[#0e141d]" : "from-white"
-                } to-transparent`}
-              />
-            </div>
+            {/* Bottom gradient scrim for the info bar */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-2/5"
+              style={{
+                background: isDark
+                  ? "linear-gradient(to top, rgba(7,9,14,0.97) 0%, rgba(7,9,14,0.7) 50%, transparent 100%)"
+                  : "linear-gradient(to top, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.55) 50%, transparent 100%)",
+              }}
+            />
 
-            {/* Card Body */}
-            <div className="relative z-10 flex flex-col gap-5 px-7 pb-7 -mt-6">
-              {/* Name & Title */}
+            {/* Accent top-right corner glow */}
+            <div
+              className="pointer-events-none absolute top-0 right-0 h-48 w-48 rounded-full blur-3xl opacity-25"
+              style={{ background: "#00e5a3" }}
+            />
+
+            {/* Info bar — sits over the gradient */}
+            <div className="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-4">
+              {/* Name block */}
               <div>
-                <h3
-                  className={`font-display text-2xl font-bold ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
+                <h3 className="font-display text-2xl font-bold text-white leading-tight">
                   Obande Sunday Itodo
                 </h3>
-                <span
-                  className={`text-sm font-semibold tracking-wide ${
-                    isDark ? "text-[#00e5a3]" : "text-[#0d9488]"
-                  }`}
-                >
+                <p className="text-sm font-semibold text-[#00e5a3] mt-0.5">
                   CEO | Lead Creative
-                </span>
-                <p
-                  className={`text-xs mt-0.5 ${
-                    isDark ? "text-white/40" : "text-slate-500"
-                  }`}
-                >
-                  ObanHills Studio · Est. 2024 · Nigeria &amp; Global
+                </p>
+                <p className="text-[11px] text-white/40 mt-0.5 tracking-wide">
+                  ObanHills Studio · Est. 2024 · Nigeria & Global
                 </p>
               </div>
 
-              {/* Info Rows */}
-              <div
-                className={`space-y-3 text-xs leading-relaxed border-t pt-5 ${
-                  isDark ? "border-white/[0.08] text-white/60" : "border-slate-200 text-slate-600"
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <span
-                    className={`font-semibold min-w-[90px] ${
-                      isDark ? "text-white" : "text-slate-900"
-                    }`}
-                  >
-                    Specialization:
-                  </span>
-                  <span>Brand Identity, AI Creative Systems &amp; 3D Web</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span
-                    className={`font-semibold min-w-[90px] ${
-                      isDark ? "text-white" : "text-slate-900"
-                    }`}
-                  >
-                    Status:
-                  </span>
-                  <span
-                    className={`font-semibold flex items-center gap-1.5 ${
-                      isDark ? "text-[#00e5a3]" : "text-[#0d9488]"
-                    }`}
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3] animate-pulse" />
-                    Available for commissions &amp; collaborations
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span
-                    className={`font-semibold min-w-[90px] ${
-                      isDark ? "text-white" : "text-slate-900"
-                    }`}
-                  >
-                    Email:
-                  </span>
-                  <span
-                    className={`font-mono break-all ${
-                      isDark ? "text-white/80" : "text-slate-800 font-semibold"
-                    }`}
-                  >
-                    Obanhillsconnect@gmail.com
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span
-                    className={`font-semibold min-w-[90px] ${
-                      isDark ? "text-white" : "text-slate-900"
-                    }`}
-                  >
-                    Phone / WA:
-                  </span>
-                  <span className={isDark ? "text-white/80" : "text-slate-800"}>
-                    07035721711 · 07035598886
-                  </span>
-                </div>
-              </div>
+              {/* Status + availability */}
+              <div className="flex items-center justify-between gap-4">
+                <span className="flex items-center gap-1.5 text-xs text-white/50">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#00e5a3] animate-pulse shadow-[0_0_6px_#00e5a3]" />
+                  Available for commissions
+                </span>
 
-              <a
-                href="#contact"
-                className="mt-2 flex items-center justify-center gap-2 rounded-xl border border-[#00e5a3]/40 bg-[#00e5a3]/20 py-3 text-xs font-bold uppercase tracking-wider text-[#008f66] dark:text-[#00e5a3] transition-all hover:bg-[#00e5a3]/30 hover:shadow-[0_0_24px_rgba(0,229,163,0.2)]"
-              >
-                Let&apos;s Build Together →
-              </a>
+                {/* Specialization tag */}
+                <span className="rounded-full border border-[#00e5a3]/30 bg-[#00e5a3]/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#00e5a3] backdrop-blur-md">
+                  Brand · 3D · AI
+                </span>
+              </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
       </div>
     </section>
