@@ -134,7 +134,7 @@ function ProjectCard({
         className={`relative shrink-0 flex items-center justify-center overflow-hidden p-8 ${
           isDark ? "bg-[#070b10]" : "bg-slate-50"
         }`}
-        style={{ width: "min(340px, 42%)", minHeight: "280px" }}
+        style={{ width: "min(340px, 42%)", minHeight: "400px" }}
       >
         {/* Accent glow */}
         <div
@@ -152,7 +152,7 @@ function ProjectCard({
           </div>
         )}
 
-        <div className="relative w-[80%]" style={{ height: "200px" }}>
+        <div className="relative w-[80%]" style={{ height: "320px" }}>
           <FannedPanels
             images={allImages}
             title={project.title}
