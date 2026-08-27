@@ -31,7 +31,8 @@ interface FannedPanelsProps {
 }
 
 function FannedPanels({ images, title, accent, hovered, priority = false }: FannedPanelsProps) {
-  const panels = images.slice(0, 3);
+  // Reverse the array so the first image (cover) is rendered last and appears in front
+  const panels = [...images].slice(0, 3).reverse();
   const count = panels.length;
 
   const configs: [number, number, number, number, number][] =
