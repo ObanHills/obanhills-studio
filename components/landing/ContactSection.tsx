@@ -99,7 +99,7 @@ export function ContactSection() {
               </a>
               <div className="flex items-center gap-4 pt-2">
                 {[
-                  { label: "LinkedIn", href: "https://linkedin.com" },
+                  { label: "LinkedIn", href: "https://www.linkedin.com/in/sunday-itodo-obande-b2067b410/" },
                   { label: "Behance", href: "https://behance.net" },
                   { label: "GitHub", href: "https://github.com" },
                 ].map(({ label, href }) => (
