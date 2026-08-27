@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // types/index.ts
-// Shared TypeScript interfaces for the ObanHills Interactive Studio portfolio.
+// Shared TypeScript interfaces for the ObanHills Creative Studio portfolio.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface Project {

@@ -1,5 +1,5 @@
 // lib/store.ts
-// Global Zustand store for the ObanHills Interactive Studio portfolio.
+// Global Zustand store for the ObanHills Creative Studio portfolio.
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";

@@ -1,6 +1,6 @@
 "use client";
 // app/admin/page.tsx
-// Luxury Executive Studio Admin Dashboard for ObanHills Interactive Studio.
+// Luxury Executive Studio Admin Dashboard for ObanHills Creative Studio.
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
