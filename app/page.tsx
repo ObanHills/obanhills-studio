@@ -3,7 +3,7 @@
 // Home page — Scroll-Driven Hybrid Portfolio uniting an interactive 3D terrain canvas
 // with a luxury marketing landing page and 3D immersion mode toggle.
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useProjects } from "@/hooks/useProjects";
 import { useStudioStore } from "@/lib/store";
@@ -30,6 +30,16 @@ const SceneCanvas = dynamic(
 
 export default function HomePage() {
   const [is3DMode, setIs3DMode] = useState(false);
+  const setActiveProject = useStudioStore((s) => s.setActiveProject);
+
+  // Deep linking: read from URL on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get("project");
+    if (projectParam) {
+      setActiveProject(projectParam);
+    }
+  }, [setActiveProject]);
 
   // Hydrate projects data into Zustand
   useProjects();

@@ -3,6 +3,7 @@
 
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 // Display / headings — clean geometric, confident without being loud.
@@ -98,6 +99,7 @@ export default function RootLayout({
     >
       <body className="bg-terrain-dark font-sans antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );

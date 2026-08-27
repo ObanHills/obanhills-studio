@@ -48,8 +48,18 @@ export const useStudioStore = create<StudioState>()(
       isSceneReady: false,
       isHoveringNode: false,
 
-      setActiveProject: (slug) =>
-        set({ activeProjectSlug: slug, isPanelOpen: slug !== null }),
+      setActiveProject: (slug) => {
+        if (typeof window !== "undefined") {
+          const url = new URL(window.location.href);
+          if (slug) {
+            url.searchParams.set("project", slug);
+          } else {
+            url.searchParams.delete("project");
+          }
+          window.history.pushState({}, "", url.toString());
+        }
+        set({ activeProjectSlug: slug, isPanelOpen: slug !== null });
+      },
 
       setIsPanelOpen: (open) => set({ isPanelOpen: open }),
 
