@@ -100,8 +100,8 @@ export function ContactSection() {
               <div className="flex items-center gap-4 pt-2">
                 {[
                   { label: "LinkedIn", href: "https://www.linkedin.com/in/sunday-itodo-obande-b2067b410/" },
-                  { label: "Behance", href: "https://behance.net" },
-                  { label: "GitHub", href: "https://github.com" },
+                  { label: "Behance", href: "https://www.behance.net/ObanHills" },
+                  { label: "Facebook", href: "https://web.facebook.com/profile.php?id=61550923636252" },
                 ].map(({ label, href }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                     className={`flex items-center gap-1 transition-colors ${isDark ? "text-white/50 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}>
