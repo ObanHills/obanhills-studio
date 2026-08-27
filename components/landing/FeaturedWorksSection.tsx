@@ -130,12 +130,11 @@ function ProjectCard({
         onOpen(project.slug);
       }}
     >
-      {/* Fanned image panel — left */}
+      {/* Fanned image panel — top on mobile, left on desktop */}
       <div
-        className={`relative shrink-0 flex items-center justify-center overflow-hidden p-8 ${
+        className={`relative shrink-0 flex items-center justify-center overflow-hidden p-8 w-full lg:w-[42%] lg:max-w-[340px] min-h-[320px] lg:min-h-[400px] ${
           isDark ? "bg-[#070b10]" : "bg-slate-50"
         }`}
-        style={{ width: "min(340px, 42%)", minHeight: "400px" }}
       >
         {/* Accent glow */}
         <div
