@@ -52,18 +52,15 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight ${
+          className={`font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight ${
             isDark ? "text-white" : "text-slate-950"
           }`}
         >
-          Building{" "}
-          <span
-            className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] via-[#f2d98a] to-[#c9a84c]"
-          >
-            The Digital Peak
-          </span>
-          <br />
-          One Vision at a Time.
+          We Build Brands &<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] via-[#f2d98a] to-[#c9a84c]">
+            Digital Experiences
+          </span>{" "}
+          That Last.
         </motion.h1>
 
         {/* Subheading — one sharp sentence, not a service menu */}
