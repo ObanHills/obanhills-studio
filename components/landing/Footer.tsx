@@ -2,7 +2,8 @@
 // components/landing/Footer.tsx
 // Studio footer with brand mark, credits, and theme adaptation.
 
-import { Globe2, ArrowUp, Heart } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useStudioStore } from "@/lib/store";
 
@@ -22,27 +23,15 @@ export function Footer() {
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left Brand */}
-        <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#00e5a3]/30 bg-[#00e5a3]/10 text-[#00e5a3]">
-            <Globe2 size={16} />
-          </div>
-          <div className="flex flex-col">
-            <span
-              className={`font-display text-sm font-bold tracking-wider ${
-                isDark ? "text-white" : "text-slate-900"
-              }`}
-            >
-              OBAN<span className="text-[#00e5a3]">HILLS</span>
-            </span>
-            <span
-              className={`text-[9px] tracking-[0.2em] uppercase ${
-                isDark ? "text-white/40" : "text-slate-500"
-              }`}
-            >
-              Uniquely Classic · Studio
-            </span>
-          </div>
-        </div>
+        <Link href="/" className="flex items-center group">
+          <Image
+            src="/logo.png"
+            alt="ObanHills Studio"
+            width={120}
+            height={40}
+            className={`h-8 w-auto object-contain transition-opacity group-hover:opacity-70 ${isDark ? "brightness-100" : "brightness-0"}`}
+          />
+        </Link>
 
         {/* Center Credits */}
         <div

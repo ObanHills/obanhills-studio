@@ -4,7 +4,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Loader2, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import { Lock, Loader2, ArrowRight, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface AdminLoginProps {
@@ -54,14 +55,18 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
       >
         {/* Brand Crest */}
         <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 shadow-[0_0_20px_rgba(0,229,163,0.2)]">
+          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 shadow-[0_0_20px_rgba(0,229,163,0.2)]">
             <ShieldCheck size={26} className="text-[#00e5a3]" />
           </div>
-          <div className="flex items-center gap-1.5 font-display text-2xl font-bold tracking-widest text-white">
-            <span>OBAN</span>
-            <span className="text-[#00e5a3]">HILLS</span>
-          </div>
-          <p className="mt-1 text-xs font-medium tracking-[0.2em] text-white/40 uppercase">
+          <Image
+            src="/logo.png"
+            alt="ObanHills Studio"
+            width={160}
+            height={56}
+            className="h-12 w-auto object-contain"
+            priority
+          />
+          <p className="mt-2 text-xs font-medium tracking-[0.2em] text-white/40 uppercase">
             Studio CMS Executive
           </p>
         </div>

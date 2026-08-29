@@ -4,7 +4,8 @@
 // and Sun/Moon theme switcher.
 
 import { useState, useEffect } from "react";
-import { Globe2, Sparkles, Box, Lock, Menu, X, Sun, Moon } from "lucide-react";
+import { Sparkles, Box, Lock, Menu, X, Sun, Moon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useStudioStore } from "@/lib/store";
 
@@ -38,27 +39,15 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* Brand Logo & Tagline */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 text-[#00e5a3] shadow-[0_0_14px_rgba(0,229,163,0.2)] transition-all group-hover:scale-105 group-hover:border-[#00e5a3]/60">
-            <Globe2 size={18} />
-          </div>
-          <div className="flex flex-col">
-            <span
-              className={`font-display text-base font-bold tracking-wider ${
-                isDark ? "text-white" : "text-slate-900"
-              }`}
-            >
-              OBAN<span className="text-[#00e5a3]">HILLS</span>
-            </span>
-            <span
-              className={`font-display text-[9px] tracking-[0.25em] uppercase font-medium ${
-                isDark ? "text-white/40" : "text-slate-500"
-              }`}
-            >
-              Uniquely Classic
-            </span>
-          </div>
+        <Link href="/" className="flex items-center group">
+          <Image
+            src="/logo.png"
+            alt="ObanHills Studio"
+            width={140}
+            height={48}
+            className={`h-10 w-auto object-contain transition-opacity group-hover:opacity-80 ${isDark ? "brightness-100" : "brightness-0"}`}
+            priority
+          />
         </Link>
 
         {/* Center Nav Links (Desktop) */}

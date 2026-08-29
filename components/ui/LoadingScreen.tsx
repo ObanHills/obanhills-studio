@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe2 } from "lucide-react";
+import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
 
 // Fake progress that advances quickly to ~85% then waits for the real ready signal
@@ -115,22 +115,20 @@ export function LoadingScreen() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center gap-3"
+              className="flex flex-col items-center gap-4"
             >
-              {/* Icon */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00e5a3]/30 bg-[#00e5a3]/10 shadow-[0_0_32px_rgba(0,229,163,0.2)]">
-                <Globe2 size={26} className="text-[#00e5a3]" />
-              </div>
-
-              {/* Wordmark */}
-              <div className="text-center">
-                <h1 className="font-display text-3xl font-bold tracking-[0.15em] text-white">
-                  OBAN<span className="text-[#00e5a3]">HILLS</span>
-                </h1>
-                <p className="mt-1 text-[10px] tracking-[0.4em] text-white/35 uppercase font-sans">
-                  Uniquely Classic
-                </p>
-              </div>
+              {/* Logo */}
+              <Image
+                src="/logo.png"
+                alt="ObanHills Studio"
+                width={180}
+                height={64}
+                className="h-16 w-auto object-contain"
+                priority
+              />
+              <p className="text-[10px] tracking-[0.4em] text-white/30 uppercase font-sans">
+                The Digital Peak
+              </p>
             </motion.div>
 
             {/* Progress bar + label */}

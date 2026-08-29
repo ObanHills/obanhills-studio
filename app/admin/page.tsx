@@ -15,8 +15,8 @@ import {
   Layers,
   Image as ImageIcon,
   CheckCircle2,
-  Globe2,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { AdminLogin } from "@/components/admin/AdminLogin";
 import { ProjectList } from "@/components/admin/ProjectList";
@@ -142,15 +142,15 @@ export default function AdminPage() {
               <ArrowLeft size={14} /> Back to 3D Scene
             </Link>
 
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display text-lg font-bold tracking-wider text-white">
-                  OBAN<span className="text-[#00e5a3]">HILLS</span>
-                </span>
-                <span className="rounded-md border border-[#00e5a3]/30 bg-[#00e5a3]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-[#00e5a3]">
-                  Studio CMS
-                </span>
-              </div>
+            <div className="flex flex-col gap-0.5">
+              <Image
+                src="/logo.png"
+                alt="ObanHills Studio"
+                width={120}
+                height={40}
+                className="h-8 w-auto object-contain"
+                priority
+              />
               <span className="text-xs text-white/40">
                 Digital Terrain Executive Manager
               </span>
