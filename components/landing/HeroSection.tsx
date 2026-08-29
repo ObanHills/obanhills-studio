@@ -56,13 +56,14 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
             isDark ? "text-white" : "text-slate-950"
           }`}
         >
-          Architecting{" "}
+          Building{" "}
           <span
             className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] via-[#f2d98a] to-[#c9a84c]"
           >
-            Building The Digital Peak
-          </span>{" "}
-          Visual Realities.
+            The Digital Peak
+          </span>
+          <br />
+          One Vision at a Time.
         </motion.h1>
 
         {/* Subheading — one sharp sentence, not a service menu */}
