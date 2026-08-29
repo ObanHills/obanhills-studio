@@ -25,11 +25,13 @@ export function Footer() {
         {/* Left Brand */}
         <Link href="/" className="flex items-center group">
           <Image
-            src={isDark ? "/logo.png" : "/logo-dark.png"}
+            src="/logo-dark.png"
             alt="ObanHills Studio"
-            width={120}
-            height={40}
-            className="h-8 w-auto object-contain transition-opacity group-hover:opacity-70"
+            width={160}
+            height={52}
+            className={`h-10 w-auto object-contain transition-opacity group-hover:opacity-70 ${
+              isDark ? "brightness-0 invert" : "brightness-100"
+            }`}
           />
         </Link>
 
