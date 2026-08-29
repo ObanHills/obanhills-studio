@@ -43,9 +43,9 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
           <Image
             src={isDark ? "/logo.png" : "/logo-dark.png"}
             alt="ObanHills Studio"
-            width={140}
-            height={48}
-            className="h-10 w-auto object-contain transition-opacity group-hover:opacity-80"
+            width={180}
+            height={60}
+            className="h-14 w-auto object-contain transition-opacity group-hover:opacity-80"
             priority
           />
         </Link>
