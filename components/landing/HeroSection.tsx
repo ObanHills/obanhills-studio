@@ -60,7 +60,7 @@ export function HeroSection({ projects, onExplore3D }: HeroSectionProps) {
           <span
             className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] via-[#f2d98a] to-[#c9a84c]"
           >
-            Uniquely Classic
+            Building The Digital Peak
           </span>{" "}
           Visual Realities.
         </motion.h1>

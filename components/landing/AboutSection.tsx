@@ -76,7 +76,7 @@ export function AboutSection() {
             {/* Pull quote */}
             <div className={`relative pl-5 py-1 border-l-2 border-[#00e5a3]`}>
               <p className={`font-display text-base font-semibold italic leading-relaxed ${isDark ? "text-white/90" : "text-slate-800"}`}>
-                &ldquo;Uniquely Classic — visual experiences that feel timeless yet undeniably ahead.&rdquo;
+                &ldquo;Building The Digital Peak — visual experiences that feel timeless yet undeniably ahead.&rdquo;
               </p>
             </div>
 

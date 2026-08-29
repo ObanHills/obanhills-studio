@@ -127,7 +127,7 @@ export function LoadingScreen() {
                 priority
               />
               <p className="text-[10px] tracking-[0.4em] text-white/30 uppercase font-sans">
-                The Digital Peak
+                Building The Digital Peak
               </p>
             </motion.div>
 

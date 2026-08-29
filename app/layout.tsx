@@ -25,7 +25,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://obanhills.vercel.app"),
   title: {
-    default: "ObanHills Studio — Uniquely Classic",
+    default: "ObanHills Studio — Building The Digital Peak",
     template: "%s | ObanHills Studio",
   },
   description:
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://obanhills.vercel.app",
     siteName: "ObanHills Studio",
-    title: "ObanHills Studio — Uniquely Classic",
+    title: "ObanHills Studio — Building The Digital Peak",
     description:
       "Explore an interactive 3D portfolio by Obande Sunday Itodo. Brand identity, spatial web experiences, and AI-driven creative workflows.",
     images: [
@@ -57,13 +57,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ObanHills Studio — Uniquely Classic",
+        alt: "ObanHills Studio — Building The Digital Peak",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ObanHills Studio — Uniquely Classic",
+    title: "ObanHills Studio — Building The Digital Peak",
     description:
       "Explore an interactive 3D portfolio by Obande Sunday Itodo. Brand identity, spatial web, and AI creative workflows.",
     images: ["/og-image.png"],
