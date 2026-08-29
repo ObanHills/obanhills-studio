@@ -45,7 +45,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
             alt="ObanHills Studio"
             width={200}
             height={64}
-            className="h-14 w-auto object-contain transition-opacity group-hover:opacity-80"
+            className="h-10 md:h-14 w-auto object-contain transition-opacity group-hover:opacity-80"
             priority
           />
         </Link>
@@ -85,12 +85,12 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
         )}
 
         {/* Right CTA Actions */}
-        <div className="flex items-center gap-2.5">
-          {/* Theme Switcher Button */}
+        <div className="flex items-center gap-2">
+          {/* Theme Switcher — desktop only, moved to mobile drawer on mobile */}
           <button
             onClick={toggleTheme}
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+            className={`hidden md:flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
               isDark
                 ? "border-white/10 bg-white/[0.04] text-amber-300 hover:border-amber-400/40 hover:bg-amber-400/10"
                 : "border-slate-300 bg-slate-100 text-slate-700 hover:border-slate-400 hover:bg-slate-200"
@@ -99,10 +99,10 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
             {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
 
-          {/* Toggle 3D Immersion Mode */}
+          {/* Toggle 3D Immersion Mode — icon-only on mobile, full label on desktop */}
           <button
             onClick={onToggle3D}
-            className={`flex items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-xl border px-3 md:px-3.5 py-2 text-xs font-semibold transition-all ${
               is3DMode
                 ? "border-[#00e5a3] bg-[#00e5a3] text-black shadow-[0_0_20px_rgba(0,229,163,0.4)]"
                 : isDark
@@ -111,13 +111,13 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
             }`}
           >
             <Box size={14} className={is3DMode ? "animate-spin" : ""} />
-            <span>{is3DMode ? "Exit 3D View" : "Enter 3D World"}</span>
+            <span className="hidden md:inline">{is3DMode ? "Exit 3D View" : "Enter 3D World"}</span>
           </button>
 
-          {/* Admin Link */}
+          {/* Admin Link — desktop only */}
           <a
             href="/admin"
-            className={`hidden sm:flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-semibold cursor-pointer pointer-events-auto transition-all ${
+            className={`hidden md:flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-semibold cursor-pointer pointer-events-auto transition-all ${
               isDark
                 ? "border-white/[0.12] bg-white/[0.05] text-white/70 hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
                 : "border-slate-300 bg-slate-100 text-slate-700 hover:border-slate-400 hover:bg-slate-200 hover:text-slate-950"
@@ -189,7 +189,11 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
             </a>
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-1.5 text-xs text-[#00e5a3] font-semibold"
+              className={`flex items-center gap-1.5 text-xs font-semibold rounded-xl border px-3 py-2 transition-all ${
+                isDark
+                  ? "border-white/10 bg-white/[0.04] text-amber-300 hover:bg-amber-400/10"
+                  : "border-slate-300 bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
             >
               {isDark ? <Sun size={13} /> : <Moon size={13} />}
               <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
