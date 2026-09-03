@@ -41,7 +41,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center group">
           <Image
-            src={isDark ? "/logo.png" : "/logo-dark.png"}
+            src={isDark ? "/logo-dark-mode.png" : "/logo-light-mode.png"}
             alt="ObanHills Studio"
             width={200}
             height={64}

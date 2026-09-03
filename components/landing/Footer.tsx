@@ -23,15 +23,15 @@ export function Footer() {
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left Brand */}
-        <Link href="/" className="flex items-center group">
+        <div className="flex items-center gap-3">
           <Image
-            src={isDark ? "/logo.png" : "/logo-dark.png"}
+            src={isDark ? "/logo-dark-mode.png" : "/logo-light-mode.png"}
             alt="ObanHills Studio"
             width={160}
             height={52}
-            className="h-10 w-auto object-contain transition-opacity group-hover:opacity-70"
+            className="h-10 w-auto object-contain"
           />
-        </Link>
+        </div>
 
         {/* Center Credits */}
         <div
