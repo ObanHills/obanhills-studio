@@ -72,6 +72,7 @@ function FannedPanels({ images, title, accent, hovered, priority = false }: Fann
               alt={`${title} — image ${i + 1}`}
               fill
               priority={priority && i === panels.length - 1}
+              loading={(!priority || i !== panels.length - 1) ? "lazy" : undefined}
               className="object-cover"
               unoptimized
             />
@@ -116,7 +117,9 @@ function ProjectCard({
 
   return (
     <div
-      className={`relative flex flex-col lg:flex-row overflow-hidden rounded-3xl border cursor-pointer transition-all duration-300 shrink-0 ${
+      role="button"
+      tabIndex={0}
+      className={`relative flex flex-col lg:flex-row overflow-hidden rounded-3xl border cursor-pointer transition-all duration-300 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5a3] focus-visible:ring-offset-4 focus-visible:ring-offset-[#07090e] ${
         isDark
           ? "border-white/[0.08] bg-[#0c1017]/90 hover:border-[#00e5a3]/30 shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
           : "border-slate-200/80 bg-white/95 hover:border-slate-300 shadow-[0_4px_32px_rgba(0,0,0,0.07)]"
@@ -128,6 +131,12 @@ function ProjectCard({
         // Don't open panel if the user was dragging the carousel
         if (onCardClick()) return;
         onOpen(project.slug);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen(project.slug);
+        }
       }}
     >
       {/* Fanned image panel — top on mobile, left on desktop */}

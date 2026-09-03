@@ -47,6 +47,20 @@ export default function HomePage() {
   const theme = useStudioStore((s) => s.theme);
   const isDark = theme === "dark";
 
+  // Pause the 3D canvas when hero section scrolls out of view to save GPU/battery
+  const [canvasVisible, setCanvasVisible] = useState(true);
+  useEffect(() => {
+    if (is3DMode) { setCanvasVisible(true); return; }
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setCanvasVisible(entry.isIntersecting),
+      { rootMargin: "200px" }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [is3DMode]);
+
   return (
     <main
       className={`relative min-h-screen w-full transition-colors duration-300 ${
@@ -58,18 +72,20 @@ export default function HomePage() {
       {/* Scroll progress bar — pinned above everything, hidden in 3D mode */}
       {!is3DMode && <ScrollProgressBar />}
 
-      {/* 3D Background Canvas */}
-      <div
-        className={`fixed inset-0 transition-opacity duration-700 ${
-          is3DMode
-            ? "z-20 pointer-events-auto opacity-100"
-            : isDark
-            ? "z-[1] pointer-events-none opacity-40 md:opacity-50"
-            : "z-[1] pointer-events-none opacity-80 md:opacity-100"
-        }`}
-      >
-        <SceneCanvas />
-      </div>
+      {/* 3D Background Canvas — unmounted when off-screen to save GPU/battery */}
+      {(canvasVisible || is3DMode) && (
+        <div
+          className={`fixed inset-0 transition-opacity duration-700 ${
+            is3DMode
+              ? "z-20 pointer-events-auto opacity-100"
+              : isDark
+              ? "z-[1] pointer-events-none opacity-40 md:opacity-50"
+              : "z-[1] pointer-events-none opacity-80 md:opacity-100"
+          }`}
+        >
+          <SceneCanvas />
+        </div>
+      )}
 
       {/* Global Navbar */}
       <Navbar

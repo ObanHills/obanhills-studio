@@ -90,6 +90,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
           <button
             onClick={toggleTheme}
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             className={`hidden md:flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
               isDark
                 ? "border-white/10 bg-white/[0.04] text-amber-300 hover:border-amber-400/40 hover:bg-amber-400/10"
@@ -102,6 +103,7 @@ export function Navbar({ is3DMode, onToggle3D }: NavbarProps) {
           {/* Toggle 3D Immersion Mode — icon-only on mobile, full label on desktop */}
           <button
             onClick={onToggle3D}
+            aria-label={is3DMode ? "Exit 3D World" : "Enter 3D World"}
             className={`flex items-center gap-2 rounded-xl border px-3 md:px-3.5 py-2 text-xs font-semibold transition-all ${
               is3DMode
                 ? "border-[#00e5a3] bg-[#00e5a3] text-black shadow-[0_0_20px_rgba(0,229,163,0.4)]"
