@@ -279,6 +279,16 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     animRef.current = requestAnimationFrame(tick);
   }, []);
 
+  // Scroll by one card width on arrow click
+  const scrollByCard = useCallback((dir: "left" | "right") => {
+    const el = trackRef.current;
+    if (!el) return;
+    // Approximate card width from first child
+    const card = el.firstElementChild as HTMLElement | null;
+    const cardWidth = card ? card.offsetWidth + 20 : 840; // 20 = gap-5
+    el.scrollBy({ left: dir === "right" ? cardWidth : -cardWidth, behavior: "smooth" });
+  }, []);
+
   // Reset scroll and restart loop when filter changes
   useEffect(() => {
     const el = trackRef.current;
@@ -341,23 +351,51 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
             </h2>
           </div>
 
-          {/* Category filters */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
-            {categories.map((cat) => (
+          {/* Category filters + arrow nav */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all whitespace-nowrap ${
+                    selectedCategory === cat
+                      ? "border border-[#00e5a3]/50 bg-[#00e5a3] text-black shadow-[0_0_16px_rgba(0,229,163,0.3)]"
+                      : isDark
+                      ? "border border-white/[0.08] bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white"
+                      : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-950 shadow-xs"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Arrow navigation */}
+            <div className="flex items-center gap-1.5 shrink-0">
               <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all whitespace-nowrap ${
-                  selectedCategory === cat
-                    ? "border border-[#00e5a3]/50 bg-[#00e5a3] text-black shadow-[0_0_16px_rgba(0,229,163,0.3)]"
-                    : isDark
-                    ? "border border-white/[0.08] bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white"
-                    : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-950 shadow-xs"
+                onClick={() => scrollByCard("left")}
+                aria-label="Previous project"
+                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+                  isDark
+                    ? "border-white/[0.1] bg-white/[0.04] text-white/60 hover:border-[#00e5a3]/50 hover:text-[#00e5a3]"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-[#00e5a3]/50 hover:text-[#0d9488]"
                 }`}
               >
-                {cat}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
               </button>
-            ))}
+              <button
+                onClick={() => scrollByCard("right")}
+                aria-label="Next project"
+                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+                  isDark
+                    ? "border-white/[0.1] bg-white/[0.04] text-white/60 hover:border-[#00e5a3]/50 hover:text-[#00e5a3]"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-[#00e5a3]/50 hover:text-[#0d9488]"
+                }`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
