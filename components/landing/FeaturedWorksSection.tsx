@@ -294,7 +294,6 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
 
   // Drag-to-scroll (desktop)
   const onPointerDown = (e: React.PointerEvent) => {
-    // Only hijack primary mouse button or single touch
     if (e.pointerType === "mouse" && e.button !== 0) return;
     const el = trackRef.current;
     if (!el) return;
@@ -303,32 +302,25 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     pausedRef.current = true;
     dragStartX.current = e.clientX;
     dragScrollStart.current = el.scrollLeft;
-    el.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDragging.current) return;
-    const el = trackRef.current;
-    if (!el) return;
-    const delta = dragStartX.current - e.clientX;
-    // Only start scrolling after 6px of movement — preserves click intent
-    if (Math.abs(delta) > 6) {
-      didDrag.current = true;
-      el.scrollLeft = dragScrollStart.current + delta;
-    }
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    isDragging.current = false;
-    pausedRef.current = false;
-    // If the pointer barely moved, it was a click — release capture so the
-    // click event propagates normally to the card / buttons inside it
-    if (!didDrag.current) {
-      const el = trackRef.current;
-      try { el?.releasePointerCapture(e.pointerId); } catch (_) {}
-    }
-    // Delay reset so the card's onClick handler fires first and can read didDrag correctly
-    setTimeout(() => { didDrag.current = false; }, 50);
+    // Use window listeners instead of setPointerCapture so click events
+    // still reach the cards normally
+    const onMove = (ev: PointerEvent) => {
+      const delta = dragStartX.current - ev.clientX;
+      if (Math.abs(delta) > 6) {
+        didDrag.current = true;
+        el.scrollLeft = dragScrollStart.current + delta;
+      }
+    };
+    const onUp = () => {
+      isDragging.current = false;
+      pausedRef.current = false;
+      // Small delay so card onClick fires and reads didDrag before we reset it
+      setTimeout(() => { didDrag.current = false; }, 50);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
   };
 
   return (
@@ -405,9 +397,6 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
           onTouchStart={pause}
           onTouchEnd={resume}
           onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={() => { isDragging.current = false; pausedRef.current = false; didDrag.current = false; }}
         >
           {/* Render list twice for seamless loop */}
           {[...filtered, ...filtered].map((project, idx) => (
