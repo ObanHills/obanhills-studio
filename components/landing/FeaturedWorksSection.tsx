@@ -117,6 +117,7 @@ function ProjectCard({
 
   return (
     <div
+      data-project-card="true"
       role="button"
       tabIndex={0}
       className={`relative flex flex-col lg:flex-row overflow-hidden rounded-3xl border cursor-pointer transition-all duration-300 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5a3] focus-visible:ring-offset-4 focus-visible:ring-offset-[#07090e] ${
@@ -277,6 +278,8 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
         const half = el.scrollWidth / 2;
         if (el.scrollLeft >= half) {
           el.scrollLeft -= half;
+        } else if (el.scrollLeft <= 0) {
+          el.scrollLeft += half;
         }
       }
       animRef.current = requestAnimationFrame(tick);
@@ -284,14 +287,41 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     animRef.current = requestAnimationFrame(tick);
   }, []);
 
+  const scrollResumeTimer = useRef<NodeJS.Timeout | null>(null);
+
   // Scroll by one card width on arrow click
   const scrollByCard = useCallback((dir: "left" | "right") => {
     const el = trackRef.current;
     if (!el) return;
-    // Approximate card width from first child
-    const card = el.firstElementChild as HTMLElement | null;
-    const cardWidth = card ? card.offsetWidth + 20 : 840; // 20 = gap-5
-    el.scrollBy({ left: dir === "right" ? cardWidth : -cardWidth, behavior: "smooth" });
+
+    // Immediately pause auto-scroll tick so it doesn't fight the smooth scroll
+    pausedRef.current = true;
+    if (scrollResumeTimer.current) clearTimeout(scrollResumeTimer.current);
+
+    // Measure exact card width
+    const card = (el.querySelector("[data-project-card]") as HTMLElement | null) || (el.firstElementChild as HTMLElement | null);
+    const cardWidth = card ? card.offsetWidth + 20 : Math.min(window.innerWidth * 0.88, 840);
+    const half = el.scrollWidth / 2;
+
+    let target = el.scrollLeft + (dir === "right" ? cardWidth : -cardWidth);
+
+    // Boundary wrapping for seamless loop
+    if (target < 0) {
+      el.scrollLeft += half;
+      target += half;
+    } else if (target >= el.scrollWidth - el.clientWidth) {
+      el.scrollLeft -= half;
+      target -= half;
+    }
+
+    el.scrollTo({ left: target, behavior: "smooth" });
+
+    // Resume auto-scroll after the user's manual navigation settles
+    scrollResumeTimer.current = setTimeout(() => {
+      if (!isDragging.current) {
+        pausedRef.current = false;
+      }
+    }, 1200);
   }, []);
 
   // Reset scroll and restart loop when filter changes
