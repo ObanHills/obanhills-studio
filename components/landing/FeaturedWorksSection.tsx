@@ -381,25 +381,19 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
                 onClick={() => scrollByCard("left")}
                 aria-label="Previous project"
                 title="Previous project"
-                className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
-                  isDark
-                    ? "border-white/[0.12] bg-white/[0.05] text-white hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#00e5a3]"
-                    : "border-slate-200 bg-white text-slate-700 hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#0d9488]"
-                }`}
+                className="flex items-center gap-1.5 rounded-xl border border-[#00e5a3]/60 bg-[#00e5a3]/15 px-3.5 py-2 text-xs font-bold text-[#00e5a3] transition-all hover:bg-[#00e5a3] hover:text-black shadow-[0_0_14px_rgba(0,229,163,0.25)] active:scale-95"
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={16} strokeWidth={2.5} />
+                <span className="hidden sm:inline">Prev</span>
               </button>
               <button
                 onClick={() => scrollByCard("right")}
                 aria-label="Next project"
                 title="Next project"
-                className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
-                  isDark
-                    ? "border-white/[0.12] bg-white/[0.05] text-white hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#00e5a3]"
-                    : "border-slate-200 bg-white text-slate-700 hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#0d9488]"
-                }`}
+                className="flex items-center gap-1.5 rounded-xl border border-[#00e5a3]/60 bg-[#00e5a3]/15 px-3.5 py-2 text-xs font-bold text-[#00e5a3] transition-all hover:bg-[#00e5a3] hover:text-black shadow-[0_0_14px_rgba(0,229,163,0.25)] active:scale-95"
               >
-                <ChevronRight size={18} />
+                <span className="hidden sm:inline">Next</span>
+                <ChevronRight size={16} strokeWidth={2.5} />
               </button>
             </div>
           </div>
@@ -408,33 +402,26 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
 
       {/* Carousel track — edge fade masks and floating navigation arrows */}
       <div className="relative group">
-        {/* Floating Prev Button */}
+        {/* Floating Prev Button — glowing and prominent */}
         <button
           onClick={() => scrollByCard("left")}
           aria-label="Scroll carousel left"
-          title="Previous"
-          className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 ${
-            isDark
-              ? "border-white/20 bg-[#07090e]/85 text-white hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.4)]"
-              : "border-slate-300 bg-white/90 text-slate-800 hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.3)]"
-          }`}
+          title="Previous Project"
+          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border-2 border-[#00e5a3] bg-[#0c1017]/95 text-[#00e5a3] shadow-[0_0_24px_rgba(0,229,163,0.5)] transition-all duration-300 hover:scale-110 hover:bg-[#00e5a3] hover:text-black active:scale-90"
         >
-          <ChevronLeft size={22} />
+          <ChevronLeft size={28} strokeWidth={2.5} />
         </button>
 
-        {/* Floating Next Button */}
+        {/* Floating Next Button — glowing and prominent */}
         <button
           onClick={() => scrollByCard("right")}
           aria-label="Scroll carousel right"
-          title="Next"
-          className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 ${
-            isDark
-              ? "border-white/20 bg-[#07090e]/85 text-white hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.4)]"
-              : "border-slate-300 bg-white/90 text-slate-800 hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.3)]"
-          }`}
+          title="Next Project"
+          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border-2 border-[#00e5a3] bg-[#0c1017]/95 text-[#00e5a3] shadow-[0_0_24px_rgba(0,229,163,0.5)] transition-all duration-300 hover:scale-110 hover:bg-[#00e5a3] hover:text-black active:scale-90"
         >
-          <ChevronRight size={22} />
+          <ChevronRight size={28} strokeWidth={2.5} />
         </button>
+
         {/* Left fade */}
         <div
           className="pointer-events-none absolute left-0 inset-y-0 w-16 z-10"
@@ -483,12 +470,29 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="px-6 md:px-12 max-w-7xl mx-auto mt-5 flex items-center gap-2">
-        <span className={`text-[10px] uppercase tracking-[0.18em] font-medium ${isDark ? "text-white/25" : "text-slate-400"}`}>
-          Drag to explore
-        </span>
-        <div className={`h-px flex-1 max-w-[80px] ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
+      {/* Bottom Navigation Bar */}
+      <div className="px-6 md:px-12 max-w-7xl mx-auto mt-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span className={`text-[10px] uppercase tracking-[0.18em] font-medium ${isDark ? "text-white/40" : "text-slate-500"}`}>
+            Drag or use buttons to explore
+          </span>
+          <div className={`h-px w-16 ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => scrollByCard("left")}
+            className="flex items-center gap-1.5 rounded-xl border border-[#00e5a3]/40 bg-[#00e5a3]/10 px-3.5 py-2 text-xs font-semibold text-[#00e5a3] hover:bg-[#00e5a3] hover:text-black transition-all active:scale-95"
+          >
+            <ChevronLeft size={15} /> Previous Project
+          </button>
+          <button
+            onClick={() => scrollByCard("right")}
+            className="flex items-center gap-1.5 rounded-xl border border-[#00e5a3]/40 bg-[#00e5a3]/10 px-3.5 py-2 text-xs font-semibold text-[#00e5a3] hover:bg-[#00e5a3] hover:text-black transition-all active:scale-95"
+          >
+            Next Project <ChevronRight size={15} />
+          </button>
+        </div>
       </div>
     </section>
   );
