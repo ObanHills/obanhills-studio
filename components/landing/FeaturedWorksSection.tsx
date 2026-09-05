@@ -12,7 +12,7 @@
 
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Heart, ArrowUpRight, Image as ImageIcon, Images } from "lucide-react";
+import { Heart, ArrowUpRight, Image as ImageIcon, Images, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useStudioStore } from "@/lib/store";
 import type { Project } from "@/types";
@@ -356,7 +356,7 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
           </div>
 
           {/* Category filters + arrow nav */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
               {categories.map((cat) => (
                 <button
@@ -375,37 +375,66 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
               ))}
             </div>
 
-            {/* Arrow navigation */}
-            <div className="flex items-center gap-1.5 shrink-0">
+            {/* Header Arrow navigation */}
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => scrollByCard("left")}
                 aria-label="Previous project"
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+                title="Previous project"
+                className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
                   isDark
-                    ? "border-white/[0.1] bg-white/[0.04] text-white/60 hover:border-[#00e5a3]/50 hover:text-[#00e5a3]"
-                    : "border-slate-200 bg-white text-slate-600 hover:border-[#00e5a3]/50 hover:text-[#0d9488]"
+                    ? "border-white/[0.12] bg-white/[0.05] text-white hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#00e5a3]"
+                    : "border-slate-200 bg-white text-slate-700 hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#0d9488]"
                 }`}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scrollByCard("right")}
                 aria-label="Next project"
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+                title="Next project"
+                className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
                   isDark
-                    ? "border-white/[0.1] bg-white/[0.04] text-white/60 hover:border-[#00e5a3]/50 hover:text-[#00e5a3]"
-                    : "border-slate-200 bg-white text-slate-600 hover:border-[#00e5a3]/50 hover:text-[#0d9488]"
+                    ? "border-white/[0.12] bg-white/[0.05] text-white hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#00e5a3]"
+                    : "border-slate-200 bg-white text-slate-700 hover:border-[#00e5a3]/60 hover:bg-[#00e5a3]/10 hover:text-[#0d9488]"
                 }`}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                <ChevronRight size={18} />
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Carousel track — edge fade masks */}
-      <div className="relative">
+      {/* Carousel track — edge fade masks and floating navigation arrows */}
+      <div className="relative group">
+        {/* Floating Prev Button */}
+        <button
+          onClick={() => scrollByCard("left")}
+          aria-label="Scroll carousel left"
+          title="Previous"
+          className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 ${
+            isDark
+              ? "border-white/20 bg-[#07090e]/85 text-white hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.4)]"
+              : "border-slate-300 bg-white/90 text-slate-800 hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.3)]"
+          }`}
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        {/* Floating Next Button */}
+        <button
+          onClick={() => scrollByCard("right")}
+          aria-label="Scroll carousel right"
+          title="Next"
+          className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 ${
+            isDark
+              ? "border-white/20 bg-[#07090e]/85 text-white hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.4)]"
+              : "border-slate-300 bg-white/90 text-slate-800 hover:border-[#00e5a3] hover:bg-[#00e5a3] hover:text-black hover:shadow-[0_0_20px_rgba(0,229,163,0.3)]"
+          }`}
+        >
+          <ChevronRight size={22} />
+        </button>
         {/* Left fade */}
         <div
           className="pointer-events-none absolute left-0 inset-y-0 w-16 z-10"
