@@ -327,7 +327,8 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
       const el = trackRef.current;
       try { el?.releasePointerCapture(e.pointerId); } catch (_) {}
     }
-    didDrag.current = false;
+    // Delay reset so the card's onClick handler fires first and can read didDrag correctly
+    setTimeout(() => { didDrag.current = false; }, 50);
   };
 
   return (
