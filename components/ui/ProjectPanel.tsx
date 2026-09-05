@@ -86,7 +86,7 @@ export function ProjectPanel() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveProject(null)}
-            className="fixed inset-0 z-30 bg-black/60 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] md:hidden"
           />
 
           {/* Panel — --panel-accent drives all accent details inside */}
@@ -97,7 +97,7 @@ export function ProjectPanel() {
             exit={{ x: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 280, damping: 30 }}
             style={{ "--panel-accent": accent } as React.CSSProperties}
-            className={`fixed right-0 top-0 z-40 h-full w-full overflow-y-auto shadow-2xl backdrop-blur-2xl sm:w-[440px] transition-colors ${
+            className={`fixed right-0 top-0 z-50 h-full w-full overflow-y-auto shadow-2xl backdrop-blur-2xl sm:w-[440px] transition-colors ${
               isDark
                 ? "border-l border-white/[0.08] bg-[#0c1017]/95 text-white"
                 : "border-l border-slate-200 bg-white/95 text-slate-900"
@@ -337,7 +337,7 @@ export function ProjectPanel() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
+                className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
                 onClick={() => setLightboxOpen(false)}
               >
                 <button

@@ -215,9 +215,14 @@ function ProjectCard({
             {project.likes_count} likes
           </span>
 
-          <motion.div
+          <motion.button
+            type="button"
             whileHover={{ x: 2 }}
-            className="flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen(project.slug);
+            }}
+            className="flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
             style={{
               borderColor: `${accent}55`,
               background: hovered ? `${accent}28` : `${accent}14`,
@@ -226,7 +231,7 @@ function ProjectCard({
           >
             Open Case Study
             <ArrowUpRight size={13} />
-          </motion.div>
+          </motion.button>
         </div>
       </div>
     </div>
@@ -302,9 +307,9 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
   const pause = () => { pausedRef.current = true; };
   const resume = () => { if (!isDragging.current) pausedRef.current = false; };
 
-  // Drag-to-scroll (desktop)
+  // Drag-to-scroll (desktop only — mobile uses native touch momentum scroll)
   const onPointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
     const el = trackRef.current;
     if (!el) return;
     isDragging.current = true;
@@ -312,11 +317,10 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     pausedRef.current = true;
     dragStartX.current = e.clientX;
     dragScrollStart.current = el.scrollLeft;
-    // Use window listeners instead of setPointerCapture so click events
-    // still reach the cards normally
+
     const onMove = (ev: PointerEvent) => {
       const delta = dragStartX.current - ev.clientX;
-      if (Math.abs(delta) > 6) {
+      if (Math.abs(delta) > 12) {
         didDrag.current = true;
         el.scrollLeft = dragScrollStart.current + delta;
       }
@@ -324,8 +328,8 @@ export function FeaturedWorksSection({ projects }: FeaturedWorksSectionProps) {
     const onUp = () => {
       isDragging.current = false;
       pausedRef.current = false;
-      // Small delay so card onClick fires and reads didDrag before we reset it
-      setTimeout(() => { didDrag.current = false; }, 50);
+      // Allow enough time for card onClick to fire before resetting didDrag
+      setTimeout(() => { didDrag.current = false; }, 100);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
     };
